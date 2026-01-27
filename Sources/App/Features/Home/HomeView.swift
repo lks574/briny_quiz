@@ -8,24 +8,34 @@ struct HomeView: View {
         List {
             if store.state.isLoading {
                 loadingRow
+                    .listRowBackground(DSColor.surface)
             }
 
             if let message = store.state.errorMessage {
                 errorRow(message: message)
+                    .listRowBackground(DSColor.surface)
             }
 
             ForEach(store.state.questions) { question in
-                Button(question.title) {
+                Button {
                     store.send(.questionSelected(question))
+                } label: {
+                    Text(question.title)
+                        .font(DSTypography.body)
+                        .foregroundStyle(DSColor.textPrimary)
                 }
+                .listRowBackground(DSColor.surface)
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(DSColor.background)
         .navigationTitle("Briny Quiz")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("Reload") {
                     store.send(.reloadTapped)
                 }
+                .font(DSTypography.body.weight(.semibold))
             }
         }
         .onAppear {
@@ -37,18 +47,22 @@ struct HomeView: View {
         HStack {
             ProgressView()
             Text("Loading")
+                .font(DSTypography.body)
+                .foregroundStyle(DSColor.textSecondary)
         }
     }
 
     private func errorRow(message: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text("Something went wrong")
-                .font(.headline)
-            Text(message)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        DSCard {
+            VStack(alignment: .leading, spacing: DSSpacing.s) {
+                Text("Something went wrong")
+                    .font(DSTypography.headline)
+                    .foregroundStyle(DSColor.textPrimary)
+                Text(message)
+                    .font(DSTypography.caption)
+                    .foregroundStyle(DSColor.textSecondary)
+            }
         }
-        .padding(.vertical, 8)
     }
 }
 

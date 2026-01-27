@@ -4,16 +4,17 @@ struct QuestionDetailView: View {
     let question: QuizQuestion
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: DSSpacing.m) {
             Text(question.title)
-                .font(.title2)
-                .fontWeight(.semibold)
+                .font(DSTypography.headline)
+                .foregroundStyle(DSColor.textPrimary)
             Text(question.body)
-                .font(.body)
-                .foregroundStyle(.secondary)
+                .font(DSTypography.body)
+                .foregroundStyle(DSColor.textSecondary)
             Spacer()
         }
-        .padding()
+        .padding(DSSpacing.l)
+        .background(DSColor.background)
         .navigationTitle("Question")
     }
 }
