@@ -31,7 +31,13 @@ let project = Project(
             ]),
             sources: ["Sources/**"],
             resources: ["Resources/**"],
-            dependencies: []
+            dependencies: [],
+            settings: .settings(
+                base: [
+                    "SWIFT_STRICT_CONCURRENCY": "complete",
+                    "SWIFT_CONCURRENCY_CHECKS": "strict"
+                ]
+            )
         )
     ]
 )

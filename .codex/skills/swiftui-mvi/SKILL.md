@@ -46,6 +46,7 @@ metadata:
 ```swift
 private var loadTask: Task<Void, Never>?
 loadTask?.cancel()
+```
 
 8.  ✅ 데이터 계층 규칙
 - Repository 패턴 사용
@@ -59,4 +60,32 @@ loadTask?.cancel()
 10.  ✅ 네비게이션 규칙
 - NavigationStack + AppRouter 사용
 - Store가 router.push(Route)를 직접 호출하는 것은 허용
-- (선택) Action → Route 이벤트로 분리 가능
+- (선택) Action → InternalAction → Route 이벤트로 분리 가능
+
+---
+
+# ✅ 추가 가이드 (권장)
+
+## 1) 초기 로딩/중복 로딩 규칙
+- `onAppear`는 **idempotent** 해야 한다 (중복 호출 안전)
+- 새 요청 전 **이전 Task 취소** + 로딩 플래그 초기화
+- 로딩 중 재요청은 무시하거나 기존 Task 재사용
+
+## 2) 에러 표준화 및 UI 매핑
+- Domain 에러는 `enum`으로 표준화 (네트워크/파싱/권한 등)
+- Store는 Domain 에러를 **UI 메시지로 변환**해서 `State`에 저장
+- View는 메시지 렌더링만 수행
+
+## 3) State 설계 원칙
+- 파생 상태(derived state)는 View가 아니라 **Store 내부 계산**으로 둔다
+- `empty/loading/loaded/error`를 단일 `State`로 표현
+- 상태 전이 흐름을 명확히 유지
+
+## 4) Store 테스트 가이드
+- `reduce(InternalAction)`는 **동기 테스트** 가능하도록 설계
+- 비동기 Task는 **UseCase/Repository mock**으로 제어
+- `Task` 취소/중복 호출 시나리오 테스트 포함
+
+## 5) Preview/DI 규칙
+- Preview에서는 **Mock Repository/Fixture 데이터**만 사용
+- 실제 네트워크/캐시는 Preview에서 금지
