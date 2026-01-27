@@ -3,6 +3,7 @@
 
 # Xcode
 DerivedData/
+Derived/
 *.xcuserstate
 *.xcscmblueprint
 *.xccheckout
