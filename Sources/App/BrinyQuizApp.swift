@@ -6,7 +6,7 @@ struct BrinyQuizApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(store: container.makeHomeStore(), router: container.appRouter)
+            AppEntryView(container: container, router: container.appRouter)
         }
     }
 }

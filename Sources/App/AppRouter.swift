@@ -4,17 +4,40 @@ import SwiftUI
 @MainActor
 @Observable
 final class AppRouter {
-    enum Route: Hashable {
-        case questionDetail(QuizQuestion)
+    enum AppTab: Hashable {
+        case dashboard
+        case history
     }
 
-    var path: [Route] = []
+    enum Route: Hashable {
+        case quiz(QuizSettings)
+        case result(QuizResult)
+    }
+
+    var selectedTab: AppTab = .dashboard
+    var dashboardPath: [Route] = []
+    var historyPath: [Route] = []
+
+    func selectTab(_ tab: AppTab) {
+        selectedTab = tab
+    }
 
     func push(_ route: Route) {
-        path.append(route)
+        dashboardPath.append(route)
     }
 
     func pop() {
-        _ = path.popLast()
+        _ = dashboardPath.popLast()
+    }
+
+    func popToRoot() {
+        dashboardPath.removeAll()
+    }
+
+    func handleDeepLink(_ url: URL) {
+        // Placeholder for future deep link rules.
+        if url.host == "history" {
+            selectTab(.history)
+        }
     }
 }
