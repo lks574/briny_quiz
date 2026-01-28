@@ -40,6 +40,8 @@ metadata:
 - 비동기 작업은 Store 내부에서 `Task {}`로 실행
 - 결과는 반드시 `InternalAction` → `reduce`를 통해 반영
 - Task 결과에서 State 직접 수정 ❌
+- SideEffect 레이어는 Store 타입에 결합되지 않도록 `Result`/DTO를 반환하고, Store가 `reduce`로 반영한다
+ - SideEffect 책임 범위: **라우팅/네트워크/타이머/Task 관리** (Task 취소/교체 포함)
 
 7. ✅ Task 취소 처리 권장
 - 중복 로딩 방지를 위해 취소 가능한 Task 사용
@@ -47,6 +49,7 @@ metadata:
 private var loadTask: Task<Void, Never>?
 loadTask?.cancel()
 ```
+- 다수 Task는 ID 기반 관리(`TaskStore`)로 정리 가능
 
 8.  ✅ 데이터 계층 규칙
 - Repository 패턴 사용
@@ -70,6 +73,7 @@ loadTask?.cancel()
 - `onAppear`는 **idempotent** 해야 한다 (중복 호출 안전)
 - 새 요청 전 **이전 Task 취소** + 로딩 플래그 초기화
 - 로딩 중 재요청은 무시하거나 기존 Task 재사용
+- View는 `.task(id:)`를 사용해 설정 변경 시에만 재호출되게 한다
 
 ## 2) 에러 표준화 및 UI 매핑
 - Domain 에러는 `enum`으로 표준화 (네트워크/파싱/권한 등)
@@ -80,6 +84,21 @@ loadTask?.cancel()
 - 파생 상태(derived state)는 View가 아니라 **Store 내부 계산**으로 둔다
 - `empty/loading/loaded/error`를 단일 `State`로 표현
 - 상태 전이 흐름을 명확히 유지
+- `State.initial(...)` 같은 팩토리로 기본값을 분리한다
+
+## 6) Store API 설계 (프로젝트 합의)
+- `send(_:)`는 `async`를 기본으로 사용하고, View 편의를 위해 동기 `send(_:)` 오버로드를 둔다
+- Store 내부 함수는 최대 3단계 깊이까지만 분해하고, 그 이상은 인라인 처리
+- `private` 헬퍼는 `private extension`으로 분리해 읽기 흐름을 단순화한다
+
+## 7) Task 관리 가이드
+- `TaskStore<ID>`를 사용해 로딩/타이머 등 Task를 ID로 관리한다
+- 타이머는 `SideEffect.startTimer(...) async` 형태로 노출하고 Store가 `await` 호출한다
+
+## 8) SideEffect 설계 규칙 (프로젝트 합의)
+- 역할: 라우팅/네트워크/타이머/Task 관리만 담당하고, 상태 변경은 절대 하지 않는다
+- 호출 패턴: Store에서 **검증 → SideEffect 호출 → 결과를 `reduce`로 반영** 흐름을 유지한다
+- 네이밍/위치: `FeatureSideEffect` / `FeatureSideEffectImpl`로 구성하고 Feature 폴더 내에 둔다
 
 ## 4) Store 테스트 가이드
 - `reduce(InternalAction)`는 **동기 테스트** 가능하도록 설계
