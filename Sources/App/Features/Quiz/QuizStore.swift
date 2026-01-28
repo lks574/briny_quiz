@@ -10,6 +10,7 @@ final class QuizStore {
         var currentIndex: Int
         var selectedAnswer: String?
         var isCorrect: Bool?
+        var currentAnswers: [String]
         var timeRemaining: Int
         var isLoading: Bool
         var errorMessage: String?
@@ -37,6 +38,7 @@ final class QuizStore {
         case setIndex(Int)
         case setSelectedAnswer(String?)
         case setCorrect(Bool?)
+        case setAnswers([String])
         case setTimeRemaining(Int)
         case setFinished(Bool)
         case setError(String?)
@@ -59,6 +61,7 @@ final class QuizStore {
             currentIndex: 0,
             selectedAnswer: nil,
             isCorrect: nil,
+            currentAnswers: [],
             timeRemaining: settings.timeLimitSeconds,
             isLoading: false,
             errorMessage: nil,
@@ -174,6 +177,14 @@ final class QuizStore {
         reduce(.setSelectedAnswer(nil))
         reduce(.setCorrect(nil))
         reduce(.setTimeRemaining(state.settings.timeLimitSeconds))
+        reduce(.setAnswers(makeAnswers()))
+    }
+
+    private func makeAnswers() -> [String] {
+        guard let question = state.currentQuestion else { return [] }
+        var answers = question.incorrectAnswers + [question.correctAnswer]
+        answers.shuffle()
+        return answers
     }
 
     private func reduce(_ action: InternalAction) {
@@ -188,6 +199,8 @@ final class QuizStore {
             state.selectedAnswer = answer
         case .setCorrect(let isCorrect):
             state.isCorrect = isCorrect
+        case .setAnswers(let answers):
+            state.currentAnswers = answers
         case .setTimeRemaining(let timeRemaining):
             state.timeRemaining = timeRemaining
         case .setFinished(let isFinished):

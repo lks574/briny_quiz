@@ -18,7 +18,7 @@ struct QuizView: View {
                 }
             } else if let question = store.state.currentQuestion {
                 questionView(question)
-                answersView(question)
+                answersView()
             }
 
             Spacer()
@@ -56,9 +56,9 @@ struct QuizView: View {
         }
     }
 
-    private func answersView(_ question: QuizQuestion) -> some View {
+    private func answersView() -> some View {
         VStack(spacing: DSSpacing.m) {
-            ForEach(question.allAnswersShuffled, id: \.self) { answer in
+            ForEach(store.state.currentAnswers, id: \.self) { answer in
                 Button {
                     store.send(.answerSelected(answer))
                 } label: {

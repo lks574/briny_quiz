@@ -36,12 +36,6 @@ struct QuizQuestion: Identifiable, Hashable {
     let question: String
     let correctAnswer: String
     let incorrectAnswers: [String]
-
-    var allAnswersShuffled: [String] {
-        var answers = incorrectAnswers + [correctAnswer]
-        answers.shuffle()
-        return answers
-    }
 }
 
 struct QuizResult: Identifiable, Hashable, Codable {
