@@ -36,7 +36,8 @@
 ---
 
 ## 4) 로컬 저장 규칙
-- 다운로드 파일은 `Application Support/QuizPack/pack.json`에 저장
+- 다운로드 파일은 `Application Support/QuizPack/pack_v{version}.json`에 저장
+- `current.json`에 현재 버전 기록
 - 저장 완료 후 자동 최신 팩으로 선택
 
 ---

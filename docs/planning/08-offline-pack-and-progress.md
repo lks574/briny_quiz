@@ -9,9 +9,12 @@
 - 빠른 시작: 현재 해제된 스테이지 중 랜덤
 
 ## 팩 위치 및 우선순위
-1) 다운로드 팩: `Application Support/QuizPack/pack.json`
-2) 번들 팩: `Resources/QuizPack/pack.json`
+1) 다운로드 팩: `Application Support/QuizPack/pack_v{version}.json`
+2) 번들 팩: `Resources/QuizPack/pack_v{version}.json`
 3) 네트워크 API (추후 선택)
+
+추가 메타:
+- `Application Support/QuizPack/current.json` : 현재 선택된 packVersion 저장
 
 ## 팩 JSON 스키마 (v1)
 최상위 키:

@@ -1,0 +1,1879 @@
+{
+  "meta": {
+    "packId": "base",
+    "version": 1,
+    "language": "ko",
+    "sizeMB": 80,
+    "updatedAt": "2026-01-28"
+  },
+  "categories": [
+    {
+      "id": "general",
+      "title": "일반 상식"
+    },
+    {
+      "id": "science",
+      "title": "과학"
+    },
+    {
+      "id": "history",
+      "title": "역사"
+    },
+    {
+      "id": "sports",
+      "title": "스포츠"
+    }
+  ],
+  "stages": [
+    {
+      "id": "general_easy_1",
+      "title": "Stage 1",
+      "categoryId": "general",
+      "difficulty": "easy",
+      "order": 1
+    },
+    {
+      "id": "general_easy_2",
+      "title": "Stage 2",
+      "categoryId": "general",
+      "difficulty": "easy",
+      "order": 2
+    },
+    {
+      "id": "general_medium_1",
+      "title": "Stage 1",
+      "categoryId": "general",
+      "difficulty": "medium",
+      "order": 1
+    },
+    {
+      "id": "general_medium_2",
+      "title": "Stage 2",
+      "categoryId": "general",
+      "difficulty": "medium",
+      "order": 2
+    },
+    {
+      "id": "general_hard_1",
+      "title": "Stage 1",
+      "categoryId": "general",
+      "difficulty": "hard",
+      "order": 1
+    },
+    {
+      "id": "general_hard_2",
+      "title": "Stage 2",
+      "categoryId": "general",
+      "difficulty": "hard",
+      "order": 2
+    },
+    {
+      "id": "science_easy_1",
+      "title": "Stage 1",
+      "categoryId": "science",
+      "difficulty": "easy",
+      "order": 1
+    },
+    {
+      "id": "science_easy_2",
+      "title": "Stage 2",
+      "categoryId": "science",
+      "difficulty": "easy",
+      "order": 2
+    },
+    {
+      "id": "science_medium_1",
+      "title": "Stage 1",
+      "categoryId": "science",
+      "difficulty": "medium",
+      "order": 1
+    },
+    {
+      "id": "science_medium_2",
+      "title": "Stage 2",
+      "categoryId": "science",
+      "difficulty": "medium",
+      "order": 2
+    },
+    {
+      "id": "science_hard_1",
+      "title": "Stage 1",
+      "categoryId": "science",
+      "difficulty": "hard",
+      "order": 1
+    },
+    {
+      "id": "science_hard_2",
+      "title": "Stage 2",
+      "categoryId": "science",
+      "difficulty": "hard",
+      "order": 2
+    },
+    {
+      "id": "history_easy_1",
+      "title": "Stage 1",
+      "categoryId": "history",
+      "difficulty": "easy",
+      "order": 1
+    },
+    {
+      "id": "history_easy_2",
+      "title": "Stage 2",
+      "categoryId": "history",
+      "difficulty": "easy",
+      "order": 2
+    },
+    {
+      "id": "history_medium_1",
+      "title": "Stage 1",
+      "categoryId": "history",
+      "difficulty": "medium",
+      "order": 1
+    },
+    {
+      "id": "history_medium_2",
+      "title": "Stage 2",
+      "categoryId": "history",
+      "difficulty": "medium",
+      "order": 2
+    },
+    {
+      "id": "history_hard_1",
+      "title": "Stage 1",
+      "categoryId": "history",
+      "difficulty": "hard",
+      "order": 1
+    },
+    {
+      "id": "history_hard_2",
+      "title": "Stage 2",
+      "categoryId": "history",
+      "difficulty": "hard",
+      "order": 2
+    },
+    {
+      "id": "sports_easy_1",
+      "title": "Stage 1",
+      "categoryId": "sports",
+      "difficulty": "easy",
+      "order": 1
+    },
+    {
+      "id": "sports_easy_2",
+      "title": "Stage 2",
+      "categoryId": "sports",
+      "difficulty": "easy",
+      "order": 2
+    },
+    {
+      "id": "sports_medium_1",
+      "title": "Stage 1",
+      "categoryId": "sports",
+      "difficulty": "medium",
+      "order": 1
+    },
+    {
+      "id": "sports_medium_2",
+      "title": "Stage 2",
+      "categoryId": "sports",
+      "difficulty": "medium",
+      "order": 2
+    },
+    {
+      "id": "sports_hard_1",
+      "title": "Stage 1",
+      "categoryId": "sports",
+      "difficulty": "hard",
+      "order": 1
+    },
+    {
+      "id": "sports_hard_2",
+      "title": "Stage 2",
+      "categoryId": "sports",
+      "difficulty": "hard",
+      "order": 2
+    }
+  ],
+  "questions": [
+    {
+      "id": "q_general_easy_1_1",
+      "categoryId": "general",
+      "stageId": "general_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "일주일은 며칠인가요?",
+      "correctAnswer": "7일",
+      "incorrectAnswers": [
+        "5일",
+        "6일",
+        "8일"
+      ]
+    },
+    {
+      "id": "q_general_easy_1_2",
+      "categoryId": "general",
+      "stageId": "general_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "하루는 몇 시간인가요?",
+      "correctAnswer": "24시간",
+      "incorrectAnswers": [
+        "12시간",
+        "36시간",
+        "48시간"
+      ]
+    },
+    {
+      "id": "q_general_easy_1_3",
+      "categoryId": "general",
+      "stageId": "general_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "빨간색의 영어 단어는 무엇인가요?",
+      "correctAnswer": "Red",
+      "incorrectAnswers": [
+        "Blue",
+        "Green",
+        "Yellow"
+      ]
+    },
+    {
+      "id": "q_general_easy_1_4",
+      "categoryId": "general",
+      "stageId": "general_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "사과는 어떤 종류의 음식인가요?",
+      "correctAnswer": "과일",
+      "incorrectAnswers": [
+        "곡류",
+        "채소",
+        "유제품"
+      ]
+    },
+    {
+      "id": "q_general_easy_1_5",
+      "categoryId": "general",
+      "stageId": "general_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "숫자 0은 어떤 값을 의미하나요?",
+      "correctAnswer": "없음",
+      "incorrectAnswers": [
+        "최대",
+        "절반",
+        "무한"
+      ]
+    },
+    {
+      "id": "q_general_easy_2_1",
+      "categoryId": "general",
+      "stageId": "general_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "대한민국의 수도는 어디인가요?",
+      "correctAnswer": "서울",
+      "incorrectAnswers": [
+        "부산",
+        "대전",
+        "광주"
+      ]
+    },
+    {
+      "id": "q_general_easy_2_2",
+      "categoryId": "general",
+      "stageId": "general_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "손으로 글자를 쓰는 도구는 무엇인가요?",
+      "correctAnswer": "펜",
+      "incorrectAnswers": [
+        "망치",
+        "칼",
+        "톱"
+      ]
+    },
+    {
+      "id": "q_general_easy_2_3",
+      "categoryId": "general",
+      "stageId": "general_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "휴대전화를 짧게 부르는 말은 무엇인가요?",
+      "correctAnswer": "폰",
+      "incorrectAnswers": [
+        "박",
+        "손",
+        "벽"
+      ]
+    },
+    {
+      "id": "q_general_easy_2_4",
+      "categoryId": "general",
+      "stageId": "general_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "물건의 값을 나타내는 것은 무엇인가요?",
+      "correctAnswer": "가격",
+      "incorrectAnswers": [
+        "색",
+        "무게",
+        "온도"
+      ]
+    },
+    {
+      "id": "q_general_easy_2_5",
+      "categoryId": "general",
+      "stageId": "general_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "밤이 지나고 밝아지는 시간은 무엇인가요?",
+      "correctAnswer": "아침",
+      "incorrectAnswers": [
+        "점심",
+        "저녁",
+        "새벽"
+      ]
+    },
+    {
+      "id": "q_general_medium_1_1",
+      "categoryId": "general",
+      "stageId": "general_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "1km는 몇 m인가요?",
+      "correctAnswer": "1000m",
+      "incorrectAnswers": [
+        "100m",
+        "500m",
+        "10000m"
+      ]
+    },
+    {
+      "id": "q_general_medium_1_2",
+      "categoryId": "general",
+      "stageId": "general_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "지구는 어떤 별의 주위를 공전하나요?",
+      "correctAnswer": "태양",
+      "incorrectAnswers": [
+        "달",
+        "화성",
+        "금성"
+      ]
+    },
+    {
+      "id": "q_general_medium_1_3",
+      "categoryId": "general",
+      "stageId": "general_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "사람의 몸에서 혈액을 순환시키는 기관은 무엇인가요?",
+      "correctAnswer": "심장",
+      "incorrectAnswers": [
+        "폐",
+        "간",
+        "위"
+      ]
+    },
+    {
+      "id": "q_general_medium_1_4",
+      "categoryId": "general",
+      "stageId": "general_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "시간을 나타내는 단위 중 60초는 무엇인가요?",
+      "correctAnswer": "1분",
+      "incorrectAnswers": [
+        "1시간",
+        "1일",
+        "1주"
+      ]
+    },
+    {
+      "id": "q_general_medium_1_5",
+      "categoryId": "general",
+      "stageId": "general_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "대한민국의 공식 언어는 무엇인가요?",
+      "correctAnswer": "한국어",
+      "incorrectAnswers": [
+        "영어",
+        "중국어",
+        "일본어"
+      ]
+    },
+    {
+      "id": "q_general_medium_2_1",
+      "categoryId": "general",
+      "stageId": "general_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "컴퓨터에서 데이터를 저장하는 기본 단위는 무엇인가요?",
+      "correctAnswer": "비트",
+      "incorrectAnswers": [
+        "킬로",
+        "미터",
+        "리터"
+      ]
+    },
+    {
+      "id": "q_general_medium_2_2",
+      "categoryId": "general",
+      "stageId": "general_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "사람이 숨을 쉴 때 필요한 기체는 무엇인가요?",
+      "correctAnswer": "산소",
+      "incorrectAnswers": [
+        "질소",
+        "이산화탄소",
+        "헬륨"
+      ]
+    },
+    {
+      "id": "q_general_medium_2_3",
+      "categoryId": "general",
+      "stageId": "general_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "계절 중 가장 더운 계절은 무엇인가요?",
+      "correctAnswer": "여름",
+      "incorrectAnswers": [
+        "봄",
+        "가을",
+        "겨울"
+      ]
+    },
+    {
+      "id": "q_general_medium_2_4",
+      "categoryId": "general",
+      "stageId": "general_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "오전 12시는 보통 무엇이라고 부르나요?",
+      "correctAnswer": "정오",
+      "incorrectAnswers": [
+        "자정",
+        "해뜰때",
+        "일몰"
+      ]
+    },
+    {
+      "id": "q_general_medium_2_5",
+      "categoryId": "general",
+      "stageId": "general_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "신용카드는 무엇을 대신하는 도구인가요?",
+      "correctAnswer": "현금",
+      "incorrectAnswers": [
+        "연필",
+        "열쇠",
+        "옷"
+      ]
+    },
+    {
+      "id": "q_general_hard_1_1",
+      "categoryId": "general",
+      "stageId": "general_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "문장의 끝에 붙어 문장을 끝맺는 기호는 무엇인가요?",
+      "correctAnswer": "마침표",
+      "incorrectAnswers": [
+        "쉼표",
+        "물음표",
+        "따옴표"
+      ]
+    },
+    {
+      "id": "q_general_hard_1_2",
+      "categoryId": "general",
+      "stageId": "general_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "시계 방향은 일반적으로 어디로 도나요?",
+      "correctAnswer": "오른쪽",
+      "incorrectAnswers": [
+        "왼쪽",
+        "위쪽",
+        "아래쪽"
+      ]
+    },
+    {
+      "id": "q_general_hard_1_3",
+      "categoryId": "general",
+      "stageId": "general_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "지도에서 북쪽을 나타내는 기호는 무엇인가요?",
+      "correctAnswer": "N",
+      "incorrectAnswers": [
+        "S",
+        "E",
+        "W"
+      ]
+    },
+    {
+      "id": "q_general_hard_1_4",
+      "categoryId": "general",
+      "stageId": "general_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "동전을 모으는 취미는 무엇이라고 하나요?",
+      "correctAnswer": "주화 수집",
+      "incorrectAnswers": [
+        "식물 재배",
+        "도장 찍기",
+        "사진 촬영"
+      ]
+    },
+    {
+      "id": "q_general_hard_1_5",
+      "categoryId": "general",
+      "stageId": "general_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "전화번호 앞에 붙는 지역 번호를 무엇이라 하나요?",
+      "correctAnswer": "지역 코드",
+      "incorrectAnswers": [
+        "암호",
+        "바코드",
+        "우편번호"
+      ]
+    },
+    {
+      "id": "q_general_hard_2_1",
+      "categoryId": "general",
+      "stageId": "general_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "숫자 1부터 100까지의 합은 얼마인가요?",
+      "correctAnswer": "5050",
+      "incorrectAnswers": [
+        "5000",
+        "5100",
+        "4950"
+      ]
+    },
+    {
+      "id": "q_general_hard_2_2",
+      "categoryId": "general",
+      "stageId": "general_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "무게의 단위 kg는 무엇의 약자인가요?",
+      "correctAnswer": "킬로그램",
+      "incorrectAnswers": [
+        "킬로미터",
+        "킬로리터",
+        "킬로바이트"
+      ]
+    },
+    {
+      "id": "q_general_hard_2_3",
+      "categoryId": "general",
+      "stageId": "general_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "태풍의 반대 개념에 가까운 것은 무엇인가요?",
+      "correctAnswer": "고기압",
+      "incorrectAnswers": [
+        "저기압",
+        "폭풍",
+        "난류"
+      ]
+    },
+    {
+      "id": "q_general_hard_2_4",
+      "categoryId": "general",
+      "stageId": "general_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "한글의 기본 글자 수(자모)는 몇 개인가요?",
+      "correctAnswer": "24",
+      "incorrectAnswers": [
+        "14",
+        "28",
+        "32"
+      ]
+    },
+    {
+      "id": "q_general_hard_2_5",
+      "categoryId": "general",
+      "stageId": "general_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "알파벳에서 A 다음 글자는 무엇인가요?",
+      "correctAnswer": "B",
+      "incorrectAnswers": [
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "q_science_easy_1_1",
+      "categoryId": "science",
+      "stageId": "science_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "물의 화학식은 무엇인가요?",
+      "correctAnswer": "H2O",
+      "incorrectAnswers": [
+        "CO2",
+        "O2",
+        "NaCl"
+      ]
+    },
+    {
+      "id": "q_science_easy_1_2",
+      "categoryId": "science",
+      "stageId": "science_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "지구에서 중력을 느끼게 하는 천체는 무엇인가요?",
+      "correctAnswer": "지구",
+      "incorrectAnswers": [
+        "달",
+        "태양",
+        "화성"
+      ]
+    },
+    {
+      "id": "q_science_easy_1_3",
+      "categoryId": "science",
+      "stageId": "science_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "식물이 빛을 이용해 양분을 만드는 과정은 무엇인가요?",
+      "correctAnswer": "광합성",
+      "incorrectAnswers": [
+        "호흡",
+        "발효",
+        "증발"
+      ]
+    },
+    {
+      "id": "q_science_easy_1_4",
+      "categoryId": "science",
+      "stageId": "science_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "사람의 몸에서 뼈를 연결하는 것은 무엇인가요?",
+      "correctAnswer": "관절",
+      "incorrectAnswers": [
+        "근육",
+        "혈관",
+        "신경"
+      ]
+    },
+    {
+      "id": "q_science_easy_1_5",
+      "categoryId": "science",
+      "stageId": "science_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "공기는 눈에 보이나요?",
+      "correctAnswer": "아니요",
+      "incorrectAnswers": [
+        "예",
+        "가끔",
+        "항상"
+      ]
+    },
+    {
+      "id": "q_science_easy_2_1",
+      "categoryId": "science",
+      "stageId": "science_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "태양은 어떤 종류의 천체인가요?",
+      "correctAnswer": "별",
+      "incorrectAnswers": [
+        "행성",
+        "위성",
+        "혜성"
+      ]
+    },
+    {
+      "id": "q_science_easy_2_2",
+      "categoryId": "science",
+      "stageId": "science_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "식물의 뿌리는 주로 무엇을 흡수하나요?",
+      "correctAnswer": "물",
+      "incorrectAnswers": [
+        "빛",
+        "소리",
+        "바람"
+      ]
+    },
+    {
+      "id": "q_science_easy_2_3",
+      "categoryId": "science",
+      "stageId": "science_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "사람이 숨을 쉴 때 들이마시는 기체는 무엇인가요?",
+      "correctAnswer": "산소",
+      "incorrectAnswers": [
+        "수소",
+        "헬륨",
+        "아르곤"
+      ]
+    },
+    {
+      "id": "q_science_easy_2_4",
+      "categoryId": "science",
+      "stageId": "science_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "얼음이 녹으면 무엇이 되나요?",
+      "correctAnswer": "물",
+      "incorrectAnswers": [
+        "수증기",
+        "기름",
+        "소금"
+      ]
+    },
+    {
+      "id": "q_science_easy_2_5",
+      "categoryId": "science",
+      "stageId": "science_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "전구에서 빛을 내는 것은 무엇인가요?",
+      "correctAnswer": "전기",
+      "incorrectAnswers": [
+        "자석",
+        "바람",
+        "압력"
+      ]
+    },
+    {
+      "id": "q_science_medium_1_1",
+      "categoryId": "science",
+      "stageId": "science_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "물체가 뜨거워지면서 수증기가 되는 현상은 무엇인가요?",
+      "correctAnswer": "증발",
+      "incorrectAnswers": [
+        "응결",
+        "승화",
+        "융해"
+      ]
+    },
+    {
+      "id": "q_science_medium_1_2",
+      "categoryId": "science",
+      "stageId": "science_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "지구가 태양을 한 바퀴 도는 데 걸리는 시간은?",
+      "correctAnswer": "1년",
+      "incorrectAnswers": [
+        "1개월",
+        "1주",
+        "1일"
+      ]
+    },
+    {
+      "id": "q_science_medium_1_3",
+      "categoryId": "science",
+      "stageId": "science_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "전기 회로를 끊거나 연결하는 부품은 무엇인가요?",
+      "correctAnswer": "스위치",
+      "incorrectAnswers": [
+        "배터리",
+        "전구",
+        "전선"
+      ]
+    },
+    {
+      "id": "q_science_medium_1_4",
+      "categoryId": "science",
+      "stageId": "science_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "소리는 어떤 매질을 통해 전달되나요?",
+      "correctAnswer": "진동",
+      "incorrectAnswers": [
+        "빛",
+        "온도",
+        "색"
+      ]
+    },
+    {
+      "id": "q_science_medium_1_5",
+      "categoryId": "science",
+      "stageId": "science_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "물질을 구성하는 가장 작은 입자(화학)는 무엇인가요?",
+      "correctAnswer": "원자",
+      "incorrectAnswers": [
+        "세포",
+        "분자",
+        "조각"
+      ]
+    },
+    {
+      "id": "q_science_medium_2_1",
+      "categoryId": "science",
+      "stageId": "science_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "물질이 타기 위해 필요한 것은 무엇인가요?",
+      "correctAnswer": "산소",
+      "incorrectAnswers": [
+        "질소",
+        "이산화탄소",
+        "헬륨"
+      ]
+    },
+    {
+      "id": "q_science_medium_2_2",
+      "categoryId": "science",
+      "stageId": "science_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "자석의 같은 극끼리 만나면 어떻게 되나요?",
+      "correctAnswer": "밀어낸다",
+      "incorrectAnswers": [
+        "붙는다",
+        "녹는다",
+        "사라진다"
+      ]
+    },
+    {
+      "id": "q_science_medium_2_3",
+      "categoryId": "science",
+      "stageId": "science_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "태양계에서 지구는 몇 번째 행성인가요?",
+      "correctAnswer": "세 번째",
+      "incorrectAnswers": [
+        "두 번째",
+        "네 번째",
+        "다섯 번째"
+      ]
+    },
+    {
+      "id": "q_science_medium_2_4",
+      "categoryId": "science",
+      "stageId": "science_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "온도를 측정하는 도구는 무엇인가요?",
+      "correctAnswer": "온도계",
+      "incorrectAnswers": [
+        "자",
+        "저울",
+        "나침반"
+      ]
+    },
+    {
+      "id": "q_science_medium_2_5",
+      "categoryId": "science",
+      "stageId": "science_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "지구의 대기를 구성하는 가장 많은 기체는?",
+      "correctAnswer": "질소",
+      "incorrectAnswers": [
+        "산소",
+        "이산화탄소",
+        "수소"
+      ]
+    },
+    {
+      "id": "q_science_hard_1_1",
+      "categoryId": "science",
+      "stageId": "science_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "빛이 굴절되는 대표적 예로 무엇이 있나요?",
+      "correctAnswer": "프리즘",
+      "incorrectAnswers": [
+        "자석",
+        "전지",
+        "스피커"
+      ]
+    },
+    {
+      "id": "q_science_hard_1_2",
+      "categoryId": "science",
+      "stageId": "science_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "DNA는 무엇을 담고 있나요?",
+      "correctAnswer": "유전 정보",
+      "incorrectAnswers": [
+        "수분",
+        "빛",
+        "열"
+      ]
+    },
+    {
+      "id": "q_science_hard_1_3",
+      "categoryId": "science",
+      "stageId": "science_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "전류의 단위는 무엇인가요?",
+      "correctAnswer": "암페어",
+      "incorrectAnswers": [
+        "볼트",
+        "옴",
+        "와트"
+      ]
+    },
+    {
+      "id": "q_science_hard_1_4",
+      "categoryId": "science",
+      "stageId": "science_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "물질의 상태 변화 중 고체에서 기체로 바로 바뀌는 것은?",
+      "correctAnswer": "승화",
+      "incorrectAnswers": [
+        "응결",
+        "응고",
+        "융해"
+      ]
+    },
+    {
+      "id": "q_science_hard_1_5",
+      "categoryId": "science",
+      "stageId": "science_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "지구 자전의 주기는 무엇인가요?",
+      "correctAnswer": "24시간",
+      "incorrectAnswers": [
+        "12시간",
+        "30시간",
+        "36시간"
+      ]
+    },
+    {
+      "id": "q_science_hard_2_1",
+      "categoryId": "science",
+      "stageId": "science_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "힘의 단위 N은 무엇의 약자인가요?",
+      "correctAnswer": "뉴턴",
+      "incorrectAnswers": [
+        "나노",
+        "노드",
+        "나일"
+      ]
+    },
+    {
+      "id": "q_science_hard_2_2",
+      "categoryId": "science",
+      "stageId": "science_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "렌즈로 빛을 한 점에 모으는 현상은 무엇인가요?",
+      "correctAnswer": "집광",
+      "incorrectAnswers": [
+        "산란",
+        "회절",
+        "간섭"
+      ]
+    },
+    {
+      "id": "q_science_hard_2_3",
+      "categoryId": "science",
+      "stageId": "science_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "원자핵 주위의 입자 중 음전하를 띤 것은?",
+      "correctAnswer": "전자",
+      "incorrectAnswers": [
+        "양성자",
+        "중성자",
+        "양자"
+      ]
+    },
+    {
+      "id": "q_science_hard_2_4",
+      "categoryId": "science",
+      "stageId": "science_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "물질의 밀도는 무엇의 비율인가요?",
+      "correctAnswer": "질량/부피",
+      "incorrectAnswers": [
+        "부피/질량",
+        "온도/질량",
+        "길이/시간"
+      ]
+    },
+    {
+      "id": "q_science_hard_2_5",
+      "categoryId": "science",
+      "stageId": "science_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "지구에서 가장 가까운 별은 무엇인가요?",
+      "correctAnswer": "태양",
+      "incorrectAnswers": [
+        "시리우스",
+        "베가",
+        "프로키온"
+      ]
+    },
+    {
+      "id": "q_history_easy_1_1",
+      "categoryId": "history",
+      "stageId": "history_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "역사는 무엇을 연구하는 학문인가요?",
+      "correctAnswer": "과거의 사실",
+      "incorrectAnswers": [
+        "미래의 계획",
+        "날씨",
+        "수학 공식"
+      ]
+    },
+    {
+      "id": "q_history_easy_1_2",
+      "categoryId": "history",
+      "stageId": "history_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "역사 연구에서 자료를 무엇이라고 하나요?",
+      "correctAnswer": "사료",
+      "incorrectAnswers": [
+        "음료",
+        "도구",
+        "작품"
+      ]
+    },
+    {
+      "id": "q_history_easy_1_3",
+      "categoryId": "history",
+      "stageId": "history_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "옛날 물건을 남겨둔 것을 무엇이라고 하나요?",
+      "correctAnswer": "유물",
+      "incorrectAnswers": [
+        "연설",
+        "노래",
+        "지도"
+      ]
+    },
+    {
+      "id": "q_history_easy_1_4",
+      "categoryId": "history",
+      "stageId": "history_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "과거의 사건을 시간순으로 정리한 것을 무엇이라고 하나요?",
+      "correctAnswer": "연대기",
+      "incorrectAnswers": [
+        "사전",
+        "백과",
+        "소설"
+      ]
+    },
+    {
+      "id": "q_history_easy_1_5",
+      "categoryId": "history",
+      "stageId": "history_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "역사적 장소를 남겨둔 것을 무엇이라 하나요?",
+      "correctAnswer": "유적",
+      "incorrectAnswers": [
+        "예산",
+        "풍습",
+        "의식"
+      ]
+    },
+    {
+      "id": "q_history_easy_2_1",
+      "categoryId": "history",
+      "stageId": "history_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "박물관의 역할로 알맞은 것은?",
+      "correctAnswer": "유물 전시",
+      "incorrectAnswers": [
+        "운동 경기",
+        "음식 판매",
+        "수학 시험"
+      ]
+    },
+    {
+      "id": "q_history_easy_2_2",
+      "categoryId": "history",
+      "stageId": "history_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "옛이야기를 기록한 글을 무엇이라고 하나요?",
+      "correctAnswer": "기록",
+      "incorrectAnswers": [
+        "연기",
+        "그림",
+        "계산"
+      ]
+    },
+    {
+      "id": "q_history_easy_2_3",
+      "categoryId": "history",
+      "stageId": "history_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "과거를 배우는 이유로 알맞은 것은?",
+      "correctAnswer": "교훈을 얻기 위해",
+      "incorrectAnswers": [
+        "속도를 높이기 위해",
+        "색을 맞추기 위해",
+        "온도를 높이기 위해"
+      ]
+    },
+    {
+      "id": "q_history_easy_2_4",
+      "categoryId": "history",
+      "stageId": "history_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "왕의 업적을 기록한 글을 무엇이라 하나요?",
+      "correctAnswer": "실록",
+      "incorrectAnswers": [
+        "지도",
+        "노래",
+        "운동일지"
+      ]
+    },
+    {
+      "id": "q_history_easy_2_5",
+      "categoryId": "history",
+      "stageId": "history_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "한 시대의 문화를 대표하는 물건을 무엇이라 하나요?",
+      "correctAnswer": "문화유산",
+      "incorrectAnswers": [
+        "가계부",
+        "연락처",
+        "열쇠"
+      ]
+    },
+    {
+      "id": "q_history_medium_1_1",
+      "categoryId": "history",
+      "stageId": "history_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사 연구에서 1차 사료는 무엇인가요?",
+      "correctAnswer": "당시 기록이나 유물",
+      "incorrectAnswers": [
+        "최근 기사",
+        "소설",
+        "추측"
+      ]
+    },
+    {
+      "id": "q_history_medium_1_2",
+      "categoryId": "history",
+      "stageId": "history_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "구술 자료는 어떤 방식으로 수집하나요?",
+      "correctAnswer": "인터뷰",
+      "incorrectAnswers": [
+        "대조",
+        "복사",
+        "연주"
+      ]
+    },
+    {
+      "id": "q_history_medium_1_3",
+      "categoryId": "history",
+      "stageId": "history_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "시간의 흐름을 거슬러 과거를 추적하는 방법은?",
+      "correctAnswer": "역추적",
+      "incorrectAnswers": [
+        "요약",
+        "암기",
+        "측정"
+      ]
+    },
+    {
+      "id": "q_history_medium_1_4",
+      "categoryId": "history",
+      "stageId": "history_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사적 사실을 확인하기 위해 필요한 것은?",
+      "correctAnswer": "검증",
+      "incorrectAnswers": [
+        "포장",
+        "꾸미기",
+        "삭제"
+      ]
+    },
+    {
+      "id": "q_history_medium_1_5",
+      "categoryId": "history",
+      "stageId": "history_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "한 나라의 과거 사건 기록을 무엇이라 하나요?",
+      "correctAnswer": "사서",
+      "incorrectAnswers": [
+        "지도",
+        "노래",
+        "광고"
+      ]
+    },
+    {
+      "id": "q_history_medium_2_1",
+      "categoryId": "history",
+      "stageId": "history_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사에서 시대 구분을 하는 이유는 무엇인가요?",
+      "correctAnswer": "변화의 특징 파악",
+      "incorrectAnswers": [
+        "단어 외우기",
+        "숫자 줄이기",
+        "속도 측정"
+      ]
+    },
+    {
+      "id": "q_history_medium_2_2",
+      "categoryId": "history",
+      "stageId": "history_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사 해석이 시대에 따라 달라질 수 있는 이유는?",
+      "correctAnswer": "관점 차이",
+      "incorrectAnswers": [
+        "기온 변화",
+        "키 차이",
+        "색 차이"
+      ]
+    },
+    {
+      "id": "q_history_medium_2_3",
+      "categoryId": "history",
+      "stageId": "history_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사적 인물의 생애를 다룬 글은 무엇인가요?",
+      "correctAnswer": "전기",
+      "incorrectAnswers": [
+        "지도",
+        "사전",
+        "규칙"
+      ]
+    },
+    {
+      "id": "q_history_medium_2_4",
+      "categoryId": "history",
+      "stageId": "history_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "문헌 자료는 주로 무엇으로 구성되나요?",
+      "correctAnswer": "글과 기록",
+      "incorrectAnswers": [
+        "소리",
+        "빛",
+        "온도"
+      ]
+    },
+    {
+      "id": "q_history_medium_2_5",
+      "categoryId": "history",
+      "stageId": "history_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "역사는 보통 무엇으로 남나요?",
+      "correctAnswer": "기록",
+      "incorrectAnswers": [
+        "소문",
+        "추측",
+        "감정"
+      ]
+    },
+    {
+      "id": "q_history_hard_1_1",
+      "categoryId": "history",
+      "stageId": "history_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "사료의 진위를 판별하는 과정을 무엇이라 하나요?",
+      "correctAnswer": "사료 비판",
+      "incorrectAnswers": [
+        "사료 수집",
+        "사료 번역",
+        "사료 보관"
+      ]
+    },
+    {
+      "id": "q_history_hard_1_2",
+      "categoryId": "history",
+      "stageId": "history_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "동일 사건을 여러 자료로 비교하는 이유는?",
+      "correctAnswer": "객관성 확보",
+      "incorrectAnswers": [
+        "속도 향상",
+        "비용 감소",
+        "색 변화"
+      ]
+    },
+    {
+      "id": "q_history_hard_1_3",
+      "categoryId": "history",
+      "stageId": "history_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사적 원인을 분석할 때 고려해야 하는 것은?",
+      "correctAnswer": "복합 요인",
+      "incorrectAnswers": [
+        "단일 색상",
+        "단일 길이",
+        "단일 속도"
+      ]
+    },
+    {
+      "id": "q_history_hard_1_4",
+      "categoryId": "history",
+      "stageId": "history_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "기록이 남지 않은 시대를 무엇이라 하나요?",
+      "correctAnswer": "선사 시대",
+      "incorrectAnswers": [
+        "근대 시대",
+        "현대 시대",
+        "중세 시대"
+      ]
+    },
+    {
+      "id": "q_history_hard_1_5",
+      "categoryId": "history",
+      "stageId": "history_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사 연구에서 사용되는 기준 시간은 무엇인가요?",
+      "correctAnswer": "연대",
+      "incorrectAnswers": [
+        "고도",
+        "위도",
+        "경도"
+      ]
+    },
+    {
+      "id": "q_history_hard_2_1",
+      "categoryId": "history",
+      "stageId": "history_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사학에서 사건의 인과관계를 분석하는 이유는?",
+      "correctAnswer": "이유와 결과 이해",
+      "incorrectAnswers": [
+        "색상 선택",
+        "속도 계산",
+        "소리 측정"
+      ]
+    },
+    {
+      "id": "q_history_hard_2_2",
+      "categoryId": "history",
+      "stageId": "history_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "유물과 유적의 차이에 대한 설명으로 옳은 것은?",
+      "correctAnswer": "유물은 물건, 유적은 장소",
+      "incorrectAnswers": [
+        "둘 다 사람",
+        "둘 다 동물",
+        "둘 다 음식"
+      ]
+    },
+    {
+      "id": "q_history_hard_2_3",
+      "categoryId": "history",
+      "stageId": "history_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사적 사실과 해석을 구분하는 이유는?",
+      "correctAnswer": "주관적 판단 배제",
+      "incorrectAnswers": [
+        "속도 증가",
+        "비용 절감",
+        "색상 변경"
+      ]
+    },
+    {
+      "id": "q_history_hard_2_4",
+      "categoryId": "history",
+      "stageId": "history_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사 서술에서 시간 순으로 배열하는 방식은?",
+      "correctAnswer": "연대기 서술",
+      "incorrectAnswers": [
+        "주제별 서술",
+        "무작위 서술",
+        "역방향 서술"
+      ]
+    },
+    {
+      "id": "q_history_hard_2_5",
+      "categoryId": "history",
+      "stageId": "history_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "역사 연구에서 자료의 출처를 밝히는 이유는?",
+      "correctAnswer": "신뢰성 확보",
+      "incorrectAnswers": [
+        "길이 늘림",
+        "온도 상승",
+        "빛 증가"
+      ]
+    },
+    {
+      "id": "q_sports_easy_1_1",
+      "categoryId": "sports",
+      "stageId": "sports_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "축구 한 팀의 필드 선수 수는 몇 명인가요?",
+      "correctAnswer": "11명",
+      "incorrectAnswers": [
+        "9명",
+        "10명",
+        "12명"
+      ]
+    },
+    {
+      "id": "q_sports_easy_1_2",
+      "categoryId": "sports",
+      "stageId": "sports_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "농구에서 한 팀이 코트에 서는 인원은 몇 명인가요?",
+      "correctAnswer": "5명",
+      "incorrectAnswers": [
+        "4명",
+        "6명",
+        "7명"
+      ]
+    },
+    {
+      "id": "q_sports_easy_1_3",
+      "categoryId": "sports",
+      "stageId": "sports_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "야구 경기는 보통 몇 이닝으로 진행되나요?",
+      "correctAnswer": "9이닝",
+      "incorrectAnswers": [
+        "7이닝",
+        "8이닝",
+        "10이닝"
+      ]
+    },
+    {
+      "id": "q_sports_easy_1_4",
+      "categoryId": "sports",
+      "stageId": "sports_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "배구에서 네트를 넘겨야 하는 것은 무엇인가요?",
+      "correctAnswer": "공",
+      "incorrectAnswers": [
+        "라켓",
+        "배트",
+        "스틱"
+      ]
+    },
+    {
+      "id": "q_sports_easy_1_5",
+      "categoryId": "sports",
+      "stageId": "sports_easy_1",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "수영 경기는 주로 어디에서 하나요?",
+      "correctAnswer": "수영장",
+      "incorrectAnswers": [
+        "체육관",
+        "운동장",
+        "빙상장"
+      ]
+    },
+    {
+      "id": "q_sports_easy_2_1",
+      "categoryId": "sports",
+      "stageId": "sports_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "테니스에서 공을 치는 도구는 무엇인가요?",
+      "correctAnswer": "라켓",
+      "incorrectAnswers": [
+        "배트",
+        "클럽",
+        "채찍"
+      ]
+    },
+    {
+      "id": "q_sports_easy_2_2",
+      "categoryId": "sports",
+      "stageId": "sports_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "마라톤은 어떤 종목인가요?",
+      "correctAnswer": "달리기",
+      "incorrectAnswers": [
+        "수영",
+        "축구",
+        "체조"
+      ]
+    },
+    {
+      "id": "q_sports_easy_2_3",
+      "categoryId": "sports",
+      "stageId": "sports_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "탁구에서 사용하는 공은 어떤 재질이 일반적인가요?",
+      "correctAnswer": "플라스틱",
+      "incorrectAnswers": [
+        "고무",
+        "금속",
+        "목재"
+      ]
+    },
+    {
+      "id": "q_sports_easy_2_4",
+      "categoryId": "sports",
+      "stageId": "sports_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "골프에서 공을 넣는 곳을 무엇이라 하나요?",
+      "correctAnswer": "홀",
+      "incorrectAnswers": [
+        "코너",
+        "라인",
+        "박스"
+      ]
+    },
+    {
+      "id": "q_sports_easy_2_5",
+      "categoryId": "sports",
+      "stageId": "sports_easy_2",
+      "difficulty": "easy",
+      "type": "multiple",
+      "question": "핸드볼은 어떤 부위로 공을 다루나요?",
+      "correctAnswer": "손",
+      "incorrectAnswers": [
+        "발",
+        "머리",
+        "라켓"
+      ]
+    },
+    {
+      "id": "q_sports_medium_1_1",
+      "categoryId": "sports",
+      "stageId": "sports_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "축구에서 골키퍼가 손을 사용할 수 있는 구역은?",
+      "correctAnswer": "페널티 박스",
+      "incorrectAnswers": [
+        "센터 서클",
+        "코너",
+        "터치라인"
+      ]
+    },
+    {
+      "id": "q_sports_medium_1_2",
+      "categoryId": "sports",
+      "stageId": "sports_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "농구에서 3점 슛은 어느 지역에서 던지나요?",
+      "correctAnswer": "3점 라인 밖",
+      "incorrectAnswers": [
+        "골밑",
+        "센터 서클",
+        "자유투 라인"
+      ]
+    },
+    {
+      "id": "q_sports_medium_1_3",
+      "categoryId": "sports",
+      "stageId": "sports_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "야구에서 투수가 던지는 공을 무엇이라 하나요?",
+      "correctAnswer": "투구",
+      "incorrectAnswers": [
+        "스윙",
+        "번트",
+        "캐치"
+      ]
+    },
+    {
+      "id": "q_sports_medium_1_4",
+      "categoryId": "sports",
+      "stageId": "sports_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "배구에서 한 팀이 공을 넘기기까지 최대 몇 번 터치 가능한가요?",
+      "correctAnswer": "3번",
+      "incorrectAnswers": [
+        "2번",
+        "4번",
+        "5번"
+      ]
+    },
+    {
+      "id": "q_sports_medium_1_5",
+      "categoryId": "sports",
+      "stageId": "sports_medium_1",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "수영에서 물 위로 떠오르는 동작을 무엇이라 하나요?",
+      "correctAnswer": "호흡",
+      "incorrectAnswers": [
+        "점프",
+        "스핀",
+        "드리블"
+      ]
+    },
+    {
+      "id": "q_sports_medium_2_1",
+      "categoryId": "sports",
+      "stageId": "sports_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "테니스 경기에서 한 세트는 보통 몇 게임 선승인가요?",
+      "correctAnswer": "6게임",
+      "incorrectAnswers": [
+        "4게임",
+        "5게임",
+        "7게임"
+      ]
+    },
+    {
+      "id": "q_sports_medium_2_2",
+      "categoryId": "sports",
+      "stageId": "sports_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "축구에서 경고 카드는 무슨 색인가요?",
+      "correctAnswer": "노란색",
+      "incorrectAnswers": [
+        "파란색",
+        "검은색",
+        "흰색"
+      ]
+    },
+    {
+      "id": "q_sports_medium_2_3",
+      "categoryId": "sports",
+      "stageId": "sports_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "농구에서 자유투는 몇 점인가요?",
+      "correctAnswer": "1점",
+      "incorrectAnswers": [
+        "2점",
+        "3점",
+        "4점"
+      ]
+    },
+    {
+      "id": "q_sports_medium_2_4",
+      "categoryId": "sports",
+      "stageId": "sports_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "야구에서 홈런은 어떤 상황인가요?",
+      "correctAnswer": "공이 담장을 넘음",
+      "incorrectAnswers": [
+        "볼넷",
+        "삼진",
+        "번트"
+      ]
+    },
+    {
+      "id": "q_sports_medium_2_5",
+      "categoryId": "sports",
+      "stageId": "sports_medium_2",
+      "difficulty": "medium",
+      "type": "multiple",
+      "question": "탁구에서 서브는 몇 번 튀긴 뒤 상대 코트로 가야 하나요?",
+      "correctAnswer": "1번",
+      "incorrectAnswers": [
+        "2번",
+        "3번",
+        "0번"
+      ]
+    },
+    {
+      "id": "q_sports_hard_1_1",
+      "categoryId": "sports",
+      "stageId": "sports_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "축구 경기의 정규 시간은 몇 분인가요?",
+      "correctAnswer": "90분",
+      "incorrectAnswers": [
+        "60분",
+        "80분",
+        "100분"
+      ]
+    },
+    {
+      "id": "q_sports_hard_1_2",
+      "categoryId": "sports",
+      "stageId": "sports_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "농구에서 한 쿼터는 보통 몇 분인가요?",
+      "correctAnswer": "10분",
+      "incorrectAnswers": [
+        "8분",
+        "12분",
+        "15분"
+      ]
+    },
+    {
+      "id": "q_sports_hard_1_3",
+      "categoryId": "sports",
+      "stageId": "sports_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "야구에서 스트라이크 3개는 무엇인가요?",
+      "correctAnswer": "삼진",
+      "incorrectAnswers": [
+        "홈런",
+        "볼넷",
+        "도루"
+      ]
+    },
+    {
+      "id": "q_sports_hard_1_4",
+      "categoryId": "sports",
+      "stageId": "sports_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "배구에서 네트에 공이 닿아도 넘어가면?",
+      "correctAnswer": "플레이 계속",
+      "incorrectAnswers": [
+        "무조건 반칙",
+        "득점 무효",
+        "경기 중단"
+      ]
+    },
+    {
+      "id": "q_sports_hard_1_5",
+      "categoryId": "sports",
+      "stageId": "sports_hard_1",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "골프에서 한 홀을 기준 타수보다 1타 적게 친 것은?",
+      "correctAnswer": "버디",
+      "incorrectAnswers": [
+        "보기",
+        "이글",
+        "파"
+      ]
+    },
+    {
+      "id": "q_sports_hard_2_1",
+      "categoryId": "sports",
+      "stageId": "sports_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "축구에서 오프사이드는 어떤 상황을 의미하나요?",
+      "correctAnswer": "공보다 앞에 있는 공격 위치",
+      "incorrectAnswers": [
+        "골라인 밖",
+        "코너킥 상황",
+        "프리킥 상황"
+      ]
+    },
+    {
+      "id": "q_sports_hard_2_2",
+      "categoryId": "sports",
+      "stageId": "sports_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "농구에서 드리블 없이 걸으면 무엇인가요?",
+      "correctAnswer": "트래블링",
+      "incorrectAnswers": [
+        "파울",
+        "바이얼레이션",
+        "테크니컬"
+      ]
+    },
+    {
+      "id": "q_sports_hard_2_3",
+      "categoryId": "sports",
+      "stageId": "sports_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "야구에서 주자가 베이스를 밟고 있는 상태를 무엇이라 하나요?",
+      "correctAnswer": "세이프",
+      "incorrectAnswers": [
+        "아웃",
+        "파울",
+        "볼"
+      ]
+    },
+    {
+      "id": "q_sports_hard_2_4",
+      "categoryId": "sports",
+      "stageId": "sports_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "탁구에서 네트에 맞고 넘어간 서브는?",
+      "correctAnswer": "렛",
+      "incorrectAnswers": [
+        "아웃",
+        "포인트",
+        "파울"
+      ]
+    },
+    {
+      "id": "q_sports_hard_2_5",
+      "categoryId": "sports",
+      "stageId": "sports_hard_2",
+      "difficulty": "hard",
+      "type": "multiple",
+      "question": "배구에서 공격 시 공을 잡아서 던지는 행위는?",
+      "correctAnswer": "홀딩",
+      "incorrectAnswers": [
+        "블로킹",
+        "세팅",
+        "스파이크"
+      ]
+    }
+  ]
+}
