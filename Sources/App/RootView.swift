@@ -45,6 +45,8 @@ private extension RootView {
     func destinationView(for route: AppRouter.Route) -> some View {
         Group {
             switch route {
+            case .stage(let categoryId, let difficulty):
+                StageView(store: container.makeStageStore(categoryId: categoryId, difficulty: difficulty))
             case .quiz(let settings):
                 QuizView(store: container.makeQuizStore(settings: settings))
             case .result(let result):

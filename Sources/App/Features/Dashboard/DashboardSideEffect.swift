@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 protocol DashboardSideEffect {
-    func startQuiz(settings: QuizSettings)
+    func showStage(categoryId: String, difficulty: Difficulty)
 }
 
 @MainActor
@@ -13,7 +13,7 @@ final class DashboardSideEffectImpl: DashboardSideEffect {
         self.router = router
     }
 
-    func startQuiz(settings: QuizSettings) {
-        router.push(.quiz(settings))
+    func showStage(categoryId: String, difficulty: Difficulty) {
+        router.push(.stage(categoryId: categoryId, difficulty: difficulty))
     }
 }

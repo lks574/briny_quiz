@@ -4,6 +4,13 @@ import Observation
 @Observable
 final class DashboardStore {
     struct State: Equatable {
+        struct CategoryItem: Equatable, Identifiable {
+            let id: String
+            let title: String
+        }
+
+        var categories: [CategoryItem]
+        var selectedCategoryId: String
         var selectedDifficulty: Difficulty
         var selectedType: QuestionType
         var questionCount: Int
@@ -13,14 +20,16 @@ final class DashboardStore {
     }
 
     enum Action: Equatable {
+        case categorySelected(String)
         case difficultySelected(Difficulty)
         case typeSelected(QuestionType)
         case questionCountChanged(Int)
         case timeLimitChanged(Int)
-        case startTapped
+        case stageTapped
     }
 
     enum InternalAction: Equatable {
+        case setCategory(String)
         case setDifficulty(Difficulty)
         case setType(QuestionType)
         case setQuestionCount(Int)
@@ -35,7 +44,15 @@ final class DashboardStore {
 
     init(sideEffect: DashboardSideEffect, initialSettings: QuizSettings) {
         self.sideEffect = sideEffect
+        let categories = [
+            State.CategoryItem(id: "general", title: "일반 상식"),
+            State.CategoryItem(id: "science", title: "과학"),
+            State.CategoryItem(id: "history", title: "역사"),
+            State.CategoryItem(id: "sports", title: "스포츠")
+        ]
         self.state = State(
+            categories: categories,
+            selectedCategoryId: categories.first?.id ?? "general",
             selectedDifficulty: initialSettings.difficulty,
             selectedType: initialSettings.type,
             questionCount: initialSettings.amount,
@@ -47,6 +64,8 @@ final class DashboardStore {
 
     func send(_ action: Action) {
         switch action {
+        case .categorySelected(let categoryId):
+            reduce(.setCategory(categoryId))
         case .difficultySelected(let difficulty):
             reduce(.setDifficulty(difficulty))
         case .typeSelected(let type):
@@ -55,27 +74,24 @@ final class DashboardStore {
             reduce(.setQuestionCount(count))
         case .timeLimitChanged(let seconds):
             reduce(.setTimeLimit(seconds))
-        case .startTapped:
-            startQuiz()
+        case .stageTapped:
+            showStage()
         }
     }
 
-    private func startQuiz() {
+    private func showStage() {
         let snapshot = state
         guard validate(snapshot) else { return }
         reduce(.setStarting(true))
-        let settings = QuizSettings(
-            amount: snapshot.questionCount,
-            difficulty: snapshot.selectedDifficulty,
-            type: snapshot.selectedType,
-            categoryId: nil,
-            timeLimitSeconds: snapshot.timeLimitSeconds
-        )
-        sideEffect.startQuiz(settings: settings)
+        sideEffect.showStage(categoryId: snapshot.selectedCategoryId, difficulty: snapshot.selectedDifficulty)
         reduce(.setStarting(false))
     }
 
     private func validate(_ snapshot: State) -> Bool {
+        guard !snapshot.selectedCategoryId.isEmpty else {
+            reduce(.setError("카테고리를 선택해주세요."))
+            return false
+        }
         guard snapshot.questionCount > 0 else {
             reduce(.setError("문제 수는 1개 이상이어야 합니다."))
             return false
@@ -90,6 +106,8 @@ final class DashboardStore {
 
     private func reduce(_ action: InternalAction) {
         switch action {
+        case .setCategory(let categoryId):
+            state.selectedCategoryId = categoryId
         case .setDifficulty(let difficulty):
             state.selectedDifficulty = difficulty
         case .setType(let type):

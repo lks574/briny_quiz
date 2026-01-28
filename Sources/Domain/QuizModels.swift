@@ -16,7 +16,8 @@ struct QuizSettings: Hashable, Codable {
     var amount: Int
     var difficulty: Difficulty
     var type: QuestionType
-    var categoryId: Int?
+    var categoryId: String?
+    var stageId: String?
     var timeLimitSeconds: Int
 
     static let `default` = QuizSettings(
@@ -24,6 +25,7 @@ struct QuizSettings: Hashable, Codable {
         difficulty: .easy,
         type: .mixed,
         categoryId: nil,
+        stageId: nil,
         timeLimitSeconds: 10
     )
 }

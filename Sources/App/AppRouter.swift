@@ -11,6 +11,7 @@ final class AppRouter {
     }
 
     enum Route: Hashable {
+        case stage(categoryId: String, difficulty: Difficulty)
         case quiz(QuizSettings)
         case result(QuizResult)
     }
@@ -84,7 +85,7 @@ final class AppRouter {
 extension AppRouter.Route {
     var preferredTab: AppRouter.AppTab {
         switch self {
-        case .quiz, .result:
+        case .stage, .quiz, .result:
             return .dashboard
         }
     }
@@ -93,6 +94,8 @@ extension AppRouter.Route {
         switch self {
         case .quiz, .result:
             return true
+        case .stage:
+            return false
         }
     }
 }

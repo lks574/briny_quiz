@@ -55,4 +55,12 @@ final class AppContainer {
     func makeSettingsStore() -> SettingsStore {
         SettingsStore(sideEffect: SettingsSideEffectImpl())
     }
+
+    func makeStageStore(categoryId: String, difficulty: Difficulty) -> StageStore {
+        StageStore(
+            categoryId: categoryId,
+            difficulty: difficulty,
+            sideEffect: StageSideEffectImpl(router: appRouter)
+        )
+    }
 }

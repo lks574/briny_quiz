@@ -13,6 +13,23 @@ struct DashboardView: View {
 
                 DSCard {
                     VStack(alignment: .leading, spacing: DSSpacing.m) {
+                        Text("카테고리")
+                            .font(DSTypography.headline)
+                            .foregroundStyle(DSColor.textPrimary)
+                        Picker("카테고리", selection: Binding(
+                            get: { store.state.selectedCategoryId },
+                            set: { store.send(.categorySelected($0)) }
+                        )) {
+                            ForEach(store.state.categories) { category in
+                                Text(category.title).tag(category.id)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                    }
+                }
+
+                DSCard {
+                    VStack(alignment: .leading, spacing: DSSpacing.m) {
                         Text("난이도")
                             .font(DSTypography.headline)
                             .foregroundStyle(DSColor.textPrimary)
@@ -74,8 +91,8 @@ struct DashboardView: View {
                     }
                 }
 
-                DSButton("퀴즈 시작", style: .primary) {
-                    store.send(.startTapped)
+                DSButton("스테이지 선택", style: .primary) {
+                    store.send(.stageTapped)
                 }
                 .disabled(store.state.isStarting)
 
