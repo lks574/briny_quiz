@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 protocol QuizSideEffect {
-    func loadQuestions(settings: QuizSettings, policy: CachePolicy) async -> QuizStore.InternalAction
+    func loadQuestions(settings: QuizSettings, policy: CachePolicy) async -> Result<[QuizQuestion], AppError>
     func startTimer(onTick: @escaping () -> Void, shouldStop: @escaping () -> Bool)
     func stopTimer()
     func showResult(_ result: QuizResult)
@@ -20,7 +20,7 @@ final class QuizSideEffectImpl: QuizSideEffect {
         self.router = router
     }
 
-    func loadQuestions(settings: QuizSettings, policy: CachePolicy) async -> QuizStore.InternalAction {
+    func loadQuestions(settings: QuizSettings, policy: CachePolicy) async -> Result<[QuizQuestion], AppError> {
         loadTask?.cancel()
         do {
             let task = Task {
@@ -28,10 +28,10 @@ final class QuizSideEffectImpl: QuizSideEffect {
             }
             loadTask = task
             let questions = try await task.value
-            return .questionsLoaded(questions)
+            return .success(questions)
         } catch {
             let appError = AppError.map(error)
-            return .questionsFailed(appError.displayMessage)
+            return .failure(appError)
         }
     }
 

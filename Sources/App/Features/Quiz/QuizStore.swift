@@ -43,8 +43,6 @@ final class QuizStore {
         case setFinished(Bool)
         case setError(String?)
         case setCorrectCount(Int)
-        case questionsLoaded([QuizQuestion])
-        case questionsFailed(String)
     }
 
     private let sideEffect: QuizSideEffect
@@ -68,7 +66,7 @@ final class QuizStore {
         )
     }
 
-    private func send(_ action: Action) async {
+    func send(_ action: Action) async {
         switch action {
         case .onAppear:
             await loadQuestions()
@@ -92,17 +90,19 @@ final class QuizStore {
     private func loadQuestions() async {
         reduce(.setLoading(true))
         reduce(.setError(nil))
-        let action = await sideEffect.loadQuestions(settings: state.settings, policy: .cacheFirst)
-        reduce(action)
-        switch action {
-        case .questionsLoaded:
+        let result = await sideEffect.loadQuestions(settings: state.settings, policy: .cacheFirst)
+        switch result {
+        case .success(let questions):
+            if questions.isEmpty {
+                reduce(.setError("문제를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."))
+                break
+            }
+            reduce(.setQuestions(questions))
             reduce(.setIndex(0))
             resetQuestionState()
             startTimer()
-        case .questionsFailed:
-            break
-        default:
-            break
+        case .failure(let appError):
+            reduce(.setError(appError.displayMessage))
         }
         reduce(.setLoading(false))
     }
@@ -201,10 +201,6 @@ final class QuizStore {
             state.errorMessage = message
         case .setCorrectCount(let count):
             state.correctCount = count
-        case .questionsLoaded(let questions):
-            state.questions = questions
-        case .questionsFailed(let message):
-            state.errorMessage = message
         }
     }
 }

@@ -29,7 +29,7 @@ struct QuizView: View {
         .background(DSColor.background)
         .navigationTitle("Quiz")
         .task(id: store.state.settings) {
-            store.sendAsync(.onAppear)
+            await store.send(.onAppear)
         }
     }
 
