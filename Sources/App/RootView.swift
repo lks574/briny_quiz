@@ -15,8 +15,10 @@ struct RootView: View {
                         switch route {
                         case .quiz(let settings):
                             QuizView(store: container.makeQuizStore(settings: settings))
+                                .toolbar(.hidden, for: .tabBar)
                         case .result(let result):
                             ResultView(store: container.makeResultStore(result: result))
+                                .toolbar(.hidden, for: .tabBar)
                         }
                     }
             }
