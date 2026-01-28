@@ -31,8 +31,8 @@ actor PackDatabase {
         try openIfNeeded()
         let query = "SELECT id, title, categoryId, difficulty, \"order\" FROM stages WHERE categoryId = ? AND difficulty = ? ORDER BY \"order\";"
         return try runQuery(query, bind: { stmt in
-            sqlite3_bind_text(stmt, 1, categoryId, -1, SQLITE_TRANSIENT)
-            sqlite3_bind_text(stmt, 2, difficulty.rawValue, -1, SQLITE_TRANSIENT)
+            sqlite3_bind_text(stmt, 1, (categoryId as NSString).utf8String, -1, SQLITE_TRANSIENT)
+            sqlite3_bind_text(stmt, 2, (difficulty.rawValue as NSString).utf8String, -1, SQLITE_TRANSIENT)
         }) { stmt in
             QuizStage(
                 id: columnText(stmt, 0),
@@ -51,7 +51,7 @@ actor PackDatabase {
         FROM questions WHERE stageId = ? ORDER BY id;
         """
         return try runQuery(query, bind: { stmt in
-            sqlite3_bind_text(stmt, 1, stageId, -1, SQLITE_TRANSIENT)
+            sqlite3_bind_text(stmt, 1, (stageId as NSString).utf8String, -1, SQLITE_TRANSIENT)
         }) { stmt in
             let incorrectJSON = columnText(stmt, 7)
             let incorrectAnswers = (try? JSONDecoder().decode([String].self, from: Data(incorrectJSON.utf8))) ?? []

@@ -10,6 +10,13 @@ final class AppContainer {
     private let fetchPackCategoriesUseCase: FetchPackCategoriesUseCase
     private let fetchPackStagesUseCase: FetchPackStagesUseCase
     private let fetchPackQuestionsUseCase: FetchPackQuestionsUseCase
+
+    private struct StageKey: Hashable {
+        let categoryId: String
+        let difficulty: Difficulty
+    }
+
+    private var stageStoreCache: [StageKey: StageStore] = [:]
     private let saveResultUseCase: SaveResultUseCase
     private let fetchHistoryUseCase: FetchHistoryUseCase
 
@@ -72,7 +79,11 @@ final class AppContainer {
     }
 
     func makeStageStore(categoryId: String, difficulty: Difficulty) -> StageStore {
-        StageStore(
+        let key = StageKey(categoryId: categoryId, difficulty: difficulty)
+        if let cached = stageStoreCache[key] {
+            return cached
+        }
+        let store = StageStore(
             categoryId: categoryId,
             difficulty: difficulty,
             sideEffect: StageSideEffectImpl(
@@ -80,5 +91,7 @@ final class AppContainer {
                 fetchPackStagesUseCase: fetchPackStagesUseCase
             )
         )
+        stageStoreCache[key] = store
+        return store
     }
 }

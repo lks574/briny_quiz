@@ -40,7 +40,7 @@ struct StageView: View {
         }
         .background(DSColor.background)
         .navigationTitle("Stages")
-        .task(id: store.state.categoryId + store.state.difficulty.rawValue) {
+        .task {
             await store.send(.onAppear)
         }
     }

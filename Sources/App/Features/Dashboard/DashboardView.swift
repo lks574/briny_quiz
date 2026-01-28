@@ -46,23 +46,6 @@ struct DashboardView: View {
                 }
 
                 DSCard {
-                    VStack(alignment: .leading, spacing: DSSpacing.m) {
-                        Text("질문 유형")
-                            .font(DSTypography.headline)
-                            .foregroundStyle(DSColor.textPrimary)
-                        Picker("유형", selection: Binding(
-                            get: { store.state.selectedType },
-                            set: { store.send(.typeSelected($0)) }
-                        )) {
-                            Text("혼합").tag(QuestionType.mixed)
-                            Text("객관식").tag(QuestionType.multiple)
-                            Text("주관식").tag(QuestionType.boolean)
-                        }
-                        .pickerStyle(.segmented)
-                    }
-                }
-
-                DSCard {
                     HStack {
                         VStack(alignment: .leading, spacing: DSSpacing.xs) {
                             Text("문제 수")

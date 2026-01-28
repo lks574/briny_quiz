@@ -12,7 +12,6 @@ final class DashboardStore {
         var categories: [CategoryItem]
         var selectedCategoryId: String
         var selectedDifficulty: Difficulty
-        var selectedType: QuestionType
         var questionCount: Int
         var timeLimitSeconds: Int
         var isStarting: Bool
@@ -23,7 +22,6 @@ final class DashboardStore {
         case onAppear
         case categorySelected(String)
         case difficultySelected(Difficulty)
-        case typeSelected(QuestionType)
         case questionCountChanged(Int)
         case timeLimitChanged(Int)
         case stageTapped
@@ -34,7 +32,6 @@ final class DashboardStore {
         case setSelectedCategoryId(String)
         case setCategory(String)
         case setDifficulty(Difficulty)
-        case setType(QuestionType)
         case setQuestionCount(Int)
         case setTimeLimit(Int)
         case setStarting(Bool)
@@ -51,7 +48,6 @@ final class DashboardStore {
             categories: [],
             selectedCategoryId: "",
             selectedDifficulty: initialSettings.difficulty,
-            selectedType: initialSettings.type,
             questionCount: initialSettings.amount,
             timeLimitSeconds: initialSettings.timeLimitSeconds,
             isStarting: false,
@@ -67,8 +63,6 @@ final class DashboardStore {
             reduce(.setCategory(categoryId))
         case .difficultySelected(let difficulty):
             reduce(.setDifficulty(difficulty))
-        case .typeSelected(let type):
-            reduce(.setType(type))
         case .questionCountChanged(let count):
             reduce(.setQuestionCount(count))
         case .timeLimitChanged(let seconds):
@@ -117,8 +111,6 @@ final class DashboardStore {
             state.selectedCategoryId = categoryId
         case .setDifficulty(let difficulty):
             state.selectedDifficulty = difficulty
-        case .setType(let type):
-            state.selectedType = type
         case .setQuestionCount(let count):
             state.questionCount = count
         case .setTimeLimit(let seconds):
