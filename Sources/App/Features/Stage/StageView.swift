@@ -84,10 +84,15 @@ struct StageView: View {
 }
 
 #Preview {
+    let packRepository = PackRepositoryImpl()
+    let fetchPackStagesUseCase = FetchPackStagesUseCase(repository: packRepository)
     let store = StageStore(
         categoryId: "general",
         difficulty: .easy,
-        sideEffect: StageSideEffectImpl(router: AppRouter())
+        sideEffect: StageSideEffectImpl(
+            router: AppRouter(),
+            fetchPackStagesUseCase: fetchPackStagesUseCase
+        )
     )
     return NavigationStack { StageView(store: store) }
 }

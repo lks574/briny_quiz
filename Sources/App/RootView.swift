@@ -60,10 +60,16 @@ private extension RootView {
 struct AppEntryView: View {
     let container: AppContainer
     @Bindable var router: AppRouter
-    @State private var splashStore = SplashStore()
+    @State private var splashStore: SplashStore
     @State private var dashboardStore: DashboardStore?
     @State private var historyStore: HistoryStore?
     @State private var settingsStore: SettingsStore?
+
+    init(container: AppContainer, router: AppRouter) {
+        self.container = container
+        self.router = router
+        _splashStore = State(initialValue: container.makeSplashStore())
+    }
 
     var body: some View {
         if let settings = splashStore.state.settings {

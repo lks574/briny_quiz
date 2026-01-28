@@ -11,6 +11,10 @@ actor TaskStore<ID: Hashable> {
         set(id, cancel: { task.cancel() })
     }
 
+    func setTask<T, E: Error>(_ id: ID, task: Task<T, E>) {
+        set(id, cancel: { task.cancel() })
+    }
+
     func set(_ id: ID, cancel: @escaping () -> Void) {
         tasks[id]?.cancel()
         tasks[id] = TaskHandle(cancel: cancel)

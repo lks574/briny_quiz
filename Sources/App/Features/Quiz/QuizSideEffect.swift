@@ -16,11 +16,13 @@ final class QuizSideEffectImpl: QuizSideEffect {
     }
 
     private let fetchQuestionsUseCase: FetchQuestionsUseCase
+    private let fetchPackQuestionsUseCase: FetchPackQuestionsUseCase
     private let router: AppRouter
     private let taskStore = TaskStore<TaskID>()
 
-    init(fetchQuestionsUseCase: FetchQuestionsUseCase, router: AppRouter) {
+    init(fetchQuestionsUseCase: FetchQuestionsUseCase, fetchPackQuestionsUseCase: FetchPackQuestionsUseCase, router: AppRouter) {
         self.fetchQuestionsUseCase = fetchQuestionsUseCase
+        self.fetchPackQuestionsUseCase = fetchPackQuestionsUseCase
         self.router = router
     }
 
@@ -28,9 +30,12 @@ final class QuizSideEffectImpl: QuizSideEffect {
         await taskStore.cancel(.loadQuestions)
         do {
             let task = Task {
-                try await fetchQuestionsUseCase.execute(settings: settings, policy: policy)
+                if let stageId = settings.stageId, !stageId.isEmpty {
+                    return try await fetchPackQuestionsUseCase.execute(stageId: stageId)
+                }
+                return try await fetchQuestionsUseCase.execute(settings: settings, policy: policy)
             }
-            await taskStore.set(.loadQuestions, cancel: { task.cancel() })
+            await taskStore.setTask(.loadQuestions, task: task)
             let questions = try await task.value
             await taskStore.remove(.loadQuestions)
             return .success(questions)

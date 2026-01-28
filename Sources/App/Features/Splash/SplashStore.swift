@@ -20,31 +20,39 @@ final class SplashStore {
         case setError(String?)
     }
 
+    private let sideEffect: SplashSideEffect
     var state: State
 
-    init() {
+    init(sideEffect: SplashSideEffect) {
+        self.sideEffect = sideEffect
         state = State(isLoading: false, settings: nil, errorMessage: nil)
     }
 
-    func send(_ action: Action) {
+    func send(_ action: Action) async {
         switch action {
         case .onAppear:
-            load()
+            await load()
         case .retryTapped:
-            load()
+            await load()
         }
     }
 
-    private func load() {
-        Task { [weak self] in
-            guard let self else { return }
-            reduce(.setLoading(true))
-            reduce(.setError(nil))
-            // Placeholder for persisted settings
+    func send(_ action: Action) {
+        Task { await send(action) }
+    }
+
+    private func load() async {
+        reduce(.setLoading(true))
+        reduce(.setError(nil))
+        let packResult = await sideEffect.ensurePackReady()
+        switch packResult {
+        case .success:
             let settings = QuizSettings.default
             reduce(.setSettings(settings))
-            reduce(.setLoading(false))
+        case .failure(let error):
+            reduce(.setError(error.displayMessage))
         }
+        reduce(.setLoading(false))
     }
 
     private func reduce(_ action: InternalAction) {

@@ -20,6 +20,7 @@ final class DashboardStore {
     }
 
     enum Action: Equatable {
+        case onAppear
         case categorySelected(String)
         case difficultySelected(Difficulty)
         case typeSelected(QuestionType)
@@ -29,6 +30,8 @@ final class DashboardStore {
     }
 
     enum InternalAction: Equatable {
+        case setCategories([State.CategoryItem])
+        case setSelectedCategoryId(String)
         case setCategory(String)
         case setDifficulty(Difficulty)
         case setType(QuestionType)
@@ -44,15 +47,9 @@ final class DashboardStore {
 
     init(sideEffect: DashboardSideEffect, initialSettings: QuizSettings) {
         self.sideEffect = sideEffect
-        let categories = [
-            State.CategoryItem(id: "general", title: "일반 상식"),
-            State.CategoryItem(id: "science", title: "과학"),
-            State.CategoryItem(id: "history", title: "역사"),
-            State.CategoryItem(id: "sports", title: "스포츠")
-        ]
         self.state = State(
-            categories: categories,
-            selectedCategoryId: categories.first?.id ?? "general",
+            categories: [],
+            selectedCategoryId: "",
             selectedDifficulty: initialSettings.difficulty,
             selectedType: initialSettings.type,
             questionCount: initialSettings.amount,
@@ -62,8 +59,10 @@ final class DashboardStore {
         )
     }
 
-    func send(_ action: Action) {
+    func send(_ action: Action) async {
         switch action {
+        case .onAppear:
+            await loadCategories()
         case .categorySelected(let categoryId):
             reduce(.setCategory(categoryId))
         case .difficultySelected(let difficulty):
@@ -77,6 +76,10 @@ final class DashboardStore {
         case .stageTapped:
             showStage()
         }
+    }
+
+    func send(_ action: Action) {
+        Task { await send(action) }
     }
 
     private func showStage() {
@@ -106,6 +109,10 @@ final class DashboardStore {
 
     private func reduce(_ action: InternalAction) {
         switch action {
+        case .setCategories(let categories):
+            state.categories = categories
+        case .setSelectedCategoryId(let categoryId):
+            state.selectedCategoryId = categoryId
         case .setCategory(let categoryId):
             state.selectedCategoryId = categoryId
         case .setDifficulty(let difficulty):
@@ -120,6 +127,22 @@ final class DashboardStore {
             state.isStarting = isStarting
         case .setError(let message):
             state.errorMessage = message
+        }
+    }
+}
+
+private extension DashboardStore {
+    func loadCategories() async {
+        let result = await sideEffect.fetchCategories()
+        switch result {
+        case .success(let categories):
+            let items = categories.map { State.CategoryItem(id: $0.id, title: $0.title) }
+            reduce(.setCategories(items))
+            if state.selectedCategoryId.isEmpty, let first = items.first?.id {
+                reduce(.setSelectedCategoryId(first))
+            }
+        case .failure(let error):
+            reduce(.setError(error.displayMessage))
         }
     }
 }

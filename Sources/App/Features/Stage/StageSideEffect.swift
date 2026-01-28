@@ -10,22 +10,20 @@ protocol StageSideEffect {
 @MainActor
 final class StageSideEffectImpl: StageSideEffect {
     private let router: AppRouter
+    private let fetchPackStagesUseCase: FetchPackStagesUseCase
 
-    init(router: AppRouter) {
+    init(router: AppRouter, fetchPackStagesUseCase: FetchPackStagesUseCase) {
         self.router = router
+        self.fetchPackStagesUseCase = fetchPackStagesUseCase
     }
 
     func fetchStages(categoryId: String, difficulty: Difficulty) async -> Result<[QuizStage], AppError> {
-        let stages = (1...10).map { index in
-            QuizStage(
-                id: "\(categoryId)_\(difficulty.rawValue)_\(index)",
-                title: "Stage \(index)",
-                categoryId: categoryId,
-                difficulty: difficulty,
-                order: index
-            )
+        do {
+            let stages = try await fetchPackStagesUseCase.execute(categoryId: categoryId, difficulty: difficulty)
+            return .success(stages)
+        } catch {
+            return .failure(AppError.map(error))
         }
-        return .success(stages)
     }
 
     func fetchProgress(categoryId: String, difficulty: Difficulty) async -> Result<[StageProgress], AppError> {

@@ -10,6 +10,7 @@ enum AppError: Error, Equatable {
     case forbidden
     case cancelled
     case triviaResponse(Int)
+    case pack(String)
     case unknown(String)
 
     var displayMessage: String {
@@ -32,6 +33,8 @@ enum AppError: Error, Equatable {
             return "요청이 취소되었습니다."
         case .triviaResponse(let code):
             return "문제 요청에 실패했습니다. (code: \(code))"
+        case .pack(let message):
+            return message
         case .unknown:
             return "알 수 없는 오류가 발생했습니다."
         }

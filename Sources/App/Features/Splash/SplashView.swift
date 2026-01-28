@@ -13,21 +13,26 @@ struct SplashView: View {
 
             if store.state.isLoading {
                 ProgressView()
-            } else if store.state.errorMessage != nil {
-                DSButton("Retry", style: .primary) {
-                    store.send(.retryTapped)
+            } else if let message = store.state.errorMessage {
+                VStack(spacing: DSSpacing.m) {
+                    Text(message)
+                        .font(DSTypography.body)
+                        .foregroundStyle(DSColor.textSecondary)
+                    DSButton("Retry", style: .primary) {
+                        store.send(.retryTapped)
+                    }
                 }
             }
             Spacer()
         }
         .padding(DSSpacing.l)
         .background(DSColor.background)
-        .onAppear {
-            store.send(.onAppear)
+        .task {
+            await store.send(.onAppear)
         }
     }
 }
 
 #Preview {
-    SplashView(store: SplashStore())
+    SplashView(store: SplashStore(sideEffect: SplashSideEffectImpl()))
 }

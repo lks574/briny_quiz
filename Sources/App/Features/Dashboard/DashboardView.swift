@@ -106,13 +106,21 @@ struct DashboardView: View {
         }
         .background(DSColor.background)
         .navigationTitle("Dashboard")
+        .task {
+            await store.send(.onAppear)
+        }
     }
 }
 
 #Preview {
     let router = AppRouter()
+    let packRepository = PackRepositoryImpl()
+    let fetchPackCategoriesUseCase = FetchPackCategoriesUseCase(repository: packRepository)
     let store = DashboardStore(
-        sideEffect: DashboardSideEffectImpl(router: router),
+        sideEffect: DashboardSideEffectImpl(
+            router: router,
+            fetchPackCategoriesUseCase: fetchPackCategoriesUseCase
+        ),
         initialSettings: .default
     )
     return NavigationStack { DashboardView(store: store) }

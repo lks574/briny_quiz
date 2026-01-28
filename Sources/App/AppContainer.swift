@@ -5,7 +5,11 @@ final class AppContainer {
     let appRouter = AppRouter()
 
     private let repository: TriviaRepository
+    private let packRepository: PackRepository
     private let fetchQuestionsUseCase: FetchQuestionsUseCase
+    private let fetchPackCategoriesUseCase: FetchPackCategoriesUseCase
+    private let fetchPackStagesUseCase: FetchPackStagesUseCase
+    private let fetchPackQuestionsUseCase: FetchPackQuestionsUseCase
     private let saveResultUseCase: SaveResultUseCase
     private let fetchHistoryUseCase: FetchHistoryUseCase
 
@@ -21,18 +25,25 @@ final class AppContainer {
             tokenStore: tokenStore
         )
         self.repository = repository
+        self.packRepository = PackRepositoryImpl()
         self.fetchQuestionsUseCase = FetchQuestionsUseCase(repository: repository)
+        self.fetchPackCategoriesUseCase = FetchPackCategoriesUseCase(repository: packRepository)
+        self.fetchPackStagesUseCase = FetchPackStagesUseCase(repository: packRepository)
+        self.fetchPackQuestionsUseCase = FetchPackQuestionsUseCase(repository: packRepository)
         self.saveResultUseCase = SaveResultUseCase(repository: repository)
         self.fetchHistoryUseCase = FetchHistoryUseCase(repository: repository)
     }
 
     func makeSplashStore() -> SplashStore {
-        SplashStore()
+        SplashStore(sideEffect: SplashSideEffectImpl())
     }
 
     func makeDashboardStore(initialSettings: QuizSettings) -> DashboardStore {
         DashboardStore(
-            sideEffect: DashboardSideEffectImpl(router: appRouter),
+            sideEffect: DashboardSideEffectImpl(
+                router: appRouter,
+                fetchPackCategoriesUseCase: fetchPackCategoriesUseCase
+            ),
             initialSettings: initialSettings
         )
     }
@@ -40,7 +51,11 @@ final class AppContainer {
     func makeQuizStore(settings: QuizSettings) -> QuizStore {
         QuizStore(
             settings: settings,
-            sideEffect: QuizSideEffectImpl(fetchQuestionsUseCase: fetchQuestionsUseCase, router: appRouter)
+            sideEffect: QuizSideEffectImpl(
+                fetchQuestionsUseCase: fetchQuestionsUseCase,
+                fetchPackQuestionsUseCase: fetchPackQuestionsUseCase,
+                router: appRouter
+            )
         )
     }
 
@@ -60,7 +75,10 @@ final class AppContainer {
         StageStore(
             categoryId: categoryId,
             difficulty: difficulty,
-            sideEffect: StageSideEffectImpl(router: appRouter)
+            sideEffect: StageSideEffectImpl(
+                router: appRouter,
+                fetchPackStagesUseCase: fetchPackStagesUseCase
+            )
         )
     }
 }

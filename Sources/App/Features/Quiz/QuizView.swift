@@ -121,6 +121,7 @@ struct QuizView: View {
                     tokenStore: TriviaTokenStore()
                 )
             ),
+            fetchPackQuestionsUseCase: FetchPackQuestionsUseCase(repository: PackRepositoryImpl()),
             router: router
         )
     )
