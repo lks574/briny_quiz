@@ -43,18 +43,16 @@ final class QuizStore {
         case setFinished(Bool)
         case setError(String?)
         case setCorrectCount(Int)
+        case questionsLoaded([QuizQuestion])
+        case questionsFailed(String)
     }
 
-    private let fetchQuestionsUseCase: FetchQuestionsUseCase
-    private let router: AppRouter
-    private var loadTask: Task<Void, Never>?
-    private var timerTask: Task<Void, Never>?
+    private let sideEffect: QuizSideEffect
 
     var state: State
 
-    init(settings: QuizSettings, fetchQuestionsUseCase: FetchQuestionsUseCase, router: AppRouter) {
-        self.fetchQuestionsUseCase = fetchQuestionsUseCase
-        self.router = router
+    init(settings: QuizSettings, sideEffect: QuizSideEffect) {
+        self.sideEffect = sideEffect
         self.state = State(
             settings: settings,
             questions: [],
@@ -70,10 +68,10 @@ final class QuizStore {
         )
     }
 
-    func send(_ action: Action) {
+    private func send(_ action: Action) async {
         switch action {
         case .onAppear:
-            loadQuestions()
+            await loadQuestions()
         case .answerSelected(let answer):
             selectAnswer(answer)
         case .nextTapped:
@@ -87,24 +85,26 @@ final class QuizStore {
         }
     }
 
-    private func loadQuestions() {
-        loadTask?.cancel()
-        loadTask = Task { [weak self] in
-            guard let self else { return }
-            reduce(.setLoading(true))
-            reduce(.setError(nil))
-            do {
-                let questions = try await fetchQuestionsUseCase.execute(settings: state.settings, policy: .cacheFirst)
-                reduce(.setQuestions(questions))
-                reduce(.setIndex(0))
-                resetQuestionState()
-                startTimer()
-            } catch {
-                let appError = AppError.map(error)
-                reduce(.setError(appError.displayMessage))
-            }
-            reduce(.setLoading(false))
+    func sendAsync(_ action: Action) {
+        Task { await send(action) }
+    }
+
+    private func loadQuestions() async {
+        reduce(.setLoading(true))
+        reduce(.setError(nil))
+        let action = await sideEffect.loadQuestions(settings: state.settings, policy: .cacheFirst)
+        reduce(action)
+        switch action {
+        case .questionsLoaded:
+            reduce(.setIndex(0))
+            resetQuestionState()
+            startTimer()
+        case .questionsFailed:
+            break
+        default:
+            break
         }
+        reduce(.setLoading(false))
     }
 
     private func selectAnswer(_ answer: String) {
@@ -134,23 +134,15 @@ final class QuizStore {
     }
 
     private func startTimer() {
-        timerTask?.cancel()
-        timerTask = Task { [weak self] in
-            guard let self else { return }
-            while !Task.isCancelled {
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                await MainActor.run {
-                    self.send(.timerTick)
-                }
-                if self.state.isFinished {
-                    break
-                }
-            }
-        }
+        sideEffect.startTimer(onTick: { [weak self] in
+            self?.sendAsync(.timerTick)
+        }, shouldStop: { [weak self] in
+            self?.state.isFinished == true
+        })
     }
 
     private func advanceToNext() {
-        timerTask?.cancel()
+        sideEffect.stopTimer()
         if state.currentIndex + 1 >= state.questions.count {
             finish()
         } else {
@@ -161,7 +153,7 @@ final class QuizStore {
     }
 
     private func finish() {
-        timerTask?.cancel()
+        sideEffect.stopTimer()
         reduce(.setFinished(true))
         let result = QuizResult(
             id: UUID().uuidString,
@@ -170,7 +162,7 @@ final class QuizStore {
             correctCount: state.correctCount,
             settings: state.settings
         )
-        router.push(.result(result))
+        sideEffect.showResult(result)
     }
 
     private func resetQuestionState() {
@@ -209,6 +201,10 @@ final class QuizStore {
             state.errorMessage = message
         case .setCorrectCount(let count):
             state.correctCount = count
+        case .questionsLoaded(let questions):
+            state.questions = questions
+        case .questionsFailed(let message):
+            state.errorMessage = message
         }
     }
 }

@@ -28,8 +28,8 @@ struct QuizView: View {
         .padding(DSSpacing.l)
         .background(DSColor.background)
         .navigationTitle("Quiz")
-        .onAppear {
-            store.send(.onAppear)
+        .task(id: store.state.settings) {
+            store.sendAsync(.onAppear)
         }
     }
 
@@ -60,7 +60,7 @@ struct QuizView: View {
         VStack(spacing: DSSpacing.m) {
             ForEach(store.state.currentAnswers, id: \.self) { answer in
                 Button {
-                    store.send(.answerSelected(answer))
+                    store.sendAsync(.answerSelected(answer))
                 } label: {
                     HStack {
                         Text(answer)
@@ -79,10 +79,10 @@ struct QuizView: View {
     private var footer: some View {
         HStack(spacing: DSSpacing.m) {
             DSButton("스킵", style: .secondary) {
-                store.send(.skipTapped)
+                store.sendAsync(.skipTapped)
             }
             DSButton("다음", style: .primary) {
-                store.send(.nextTapped)
+                store.sendAsync(.nextTapped)
             }
         }
     }
@@ -110,6 +110,19 @@ struct QuizView: View {
 
 #Preview {
     let router = AppRouter()
-    let store = QuizStore(settings: .default, fetchQuestionsUseCase: FetchQuestionsUseCase(repository: TriviaRepositoryImpl(apiClient: APIClient(), cache: QuestionCache(), historyStore: HistoryCache(), tokenStore: TriviaTokenStore())), router: router)
+    let store = QuizStore(
+        settings: .default,
+        sideEffect: QuizSideEffectImpl(
+            fetchQuestionsUseCase: FetchQuestionsUseCase(
+                repository: TriviaRepositoryImpl(
+                    apiClient: APIClient(),
+                    cache: QuestionCache(),
+                    historyStore: HistoryCache(),
+                    tokenStore: TriviaTokenStore()
+                )
+            ),
+            router: router
+        )
+    )
     return NavigationStack { QuizView(store: store) }
 }

@@ -38,7 +38,10 @@ final class AppContainer {
     }
 
     func makeQuizStore(settings: QuizSettings) -> QuizStore {
-        QuizStore(settings: settings, fetchQuestionsUseCase: fetchQuestionsUseCase, router: appRouter)
+        QuizStore(
+            settings: settings,
+            sideEffect: QuizSideEffectImpl(fetchQuestionsUseCase: fetchQuestionsUseCase, router: appRouter)
+        )
     }
 
     func makeResultStore(result: QuizResult) -> ResultStore {
