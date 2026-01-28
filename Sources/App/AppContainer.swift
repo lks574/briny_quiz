@@ -31,7 +31,10 @@ final class AppContainer {
     }
 
     func makeDashboardStore(initialSettings: QuizSettings) -> DashboardStore {
-        DashboardStore(router: appRouter, initialSettings: initialSettings)
+        DashboardStore(
+            sideEffect: DashboardSideEffectImpl(router: appRouter),
+            initialSettings: initialSettings
+        )
     }
 
     func makeQuizStore(settings: QuizSettings) -> QuizStore {
