@@ -60,7 +60,7 @@ struct QuizView: View {
         VStack(spacing: DSSpacing.m) {
             ForEach(store.state.currentAnswers, id: \.self) { answer in
                 Button {
-                    Task { await store.send(.answerSelected(answer)) }
+                    store.send(.answerSelected(answer))
                 } label: {
                     HStack {
                         Text(answer)
@@ -79,10 +79,10 @@ struct QuizView: View {
     private var footer: some View {
         HStack(spacing: DSSpacing.m) {
             DSButton("스킵", style: .secondary) {
-                Task { await store.send(.skipTapped) }
+                store.send(.skipTapped)
             }
             DSButton("다음", style: .primary) {
-                Task { await store.send(.nextTapped) }
+                store.send(.nextTapped)
             }
         }
     }

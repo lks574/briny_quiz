@@ -21,6 +21,22 @@ final class QuizStore {
             guard currentIndex < questions.count else { return nil }
             return questions[currentIndex]
         }
+
+        static func initial(settings: QuizSettings) -> State {
+            State(
+                settings: settings,
+                questions: [],
+                currentIndex: 0,
+                selectedAnswer: nil,
+                isCorrect: nil,
+                currentAnswers: [],
+                timeRemaining: settings.timeLimitSeconds,
+                isLoading: false,
+                errorMessage: nil,
+                isFinished: false,
+                correctCount: 0
+            )
+        }
     }
 
     enum Action: Equatable {
@@ -51,19 +67,91 @@ final class QuizStore {
 
     init(settings: QuizSettings, sideEffect: QuizSideEffect) {
         self.sideEffect = sideEffect
-        self.state = State(
-            settings: settings,
-            questions: [],
-            currentIndex: 0,
-            selectedAnswer: nil,
-            isCorrect: nil,
-            currentAnswers: [],
-            timeRemaining: settings.timeLimitSeconds,
-            isLoading: false,
-            errorMessage: nil,
-            isFinished: false,
-            correctCount: 0
+        self.state = State.initial(settings: settings)
+    }
+
+    func send(_ action: Action) {
+        Task { await send(action) }
+    }
+}
+
+private extension QuizStore {
+    static let emptyQuestionsErrorMessage = "문제를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
+
+    func loadQuestions() async {
+        reduce(.setLoading(true))
+        reduce(.setError(nil))
+        let result = await sideEffect.loadQuestions(settings: state.settings, policy: .cacheFirst)
+        switch result {
+        case .success(let questions):
+            if questions.isEmpty {
+                reduce(.setError(Self.emptyQuestionsErrorMessage))
+                break
+            }
+            reduce(.setQuestions(questions))
+            reduce(.setIndex(0))
+            resetQuestionState()
+            await startTimer()
+        case .failure(let appError):
+            reduce(.setError(appError.displayMessage))
+        }
+        reduce(.setLoading(false))
+    }
+
+    func selectAnswer(_ answer: String) {
+        guard state.selectedAnswer == nil else { return }
+        reduce(.setSelectedAnswer(answer))
+        let isCorrect = answer == state.currentQuestion?.correctAnswer
+        reduce(.setCorrect(isCorrect))
+        if isCorrect {
+            reduce(.setCorrectCount(state.correctCount + 1))
+        }
+    }
+
+    func startTimer() async {
+        await sideEffect.startTimer(onTick: { [weak self] in
+            self?.send(.timerTick)
+        }, shouldStop: { [weak self] in
+            self?.state.isFinished == true
+        })
+    }
+
+    func advanceToNext() async {
+        await sideEffect.stopTimer()
+        if state.currentIndex + 1 >= state.questions.count {
+            await finish()
+        } else {
+            reduce(.setIndex(state.currentIndex + 1))
+            resetQuestionState()
+            await startTimer()
+        }
+    }
+
+    func finish() async {
+        await sideEffect.stopTimer()
+        reduce(.setFinished(true))
+        let result = QuizResult(
+            id: UUID().uuidString,
+            date: Date(),
+            totalCount: state.questions.count,
+            correctCount: state.correctCount,
+            settings: state.settings
         )
+        sideEffect.showResult(result)
+    }
+
+    func resetQuestionState() {
+        reduce(.setSelectedAnswer(nil))
+        reduce(.setCorrect(nil))
+        reduce(.setTimeRemaining(state.settings.timeLimitSeconds))
+        reduce(.setAnswers(makeAnswers()))
+    }
+
+    func makeAnswers() -> [String] {
+        guard let question = state.currentQuestion else { return [] }
+        var answers = question.incorrectAnswers + [question.correctAnswer]
+        answers.shuffle()
+        return answers
     }
 
     func send(_ action: Action) async {
@@ -87,85 +175,7 @@ final class QuizStore {
         }
     }
 
-    private func loadQuestions() async {
-        reduce(.setLoading(true))
-        reduce(.setError(nil))
-        let result = await sideEffect.loadQuestions(settings: state.settings, policy: .cacheFirst)
-        switch result {
-        case .success(let questions):
-            if questions.isEmpty {
-                reduce(.setError("문제를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."))
-                break
-            }
-            reduce(.setQuestions(questions))
-            reduce(.setIndex(0))
-            resetQuestionState()
-            await startTimer()
-        case .failure(let appError):
-            reduce(.setError(appError.displayMessage))
-        }
-        reduce(.setLoading(false))
-    }
-
-    private func selectAnswer(_ answer: String) {
-        guard state.selectedAnswer == nil else { return }
-        reduce(.setSelectedAnswer(answer))
-        let isCorrect = answer == state.currentQuestion?.correctAnswer
-        reduce(.setCorrect(isCorrect))
-        if isCorrect {
-            reduce(.setCorrectCount(state.correctCount + 1))
-        }
-    }
-
-    private func startTimer() async {
-        await sideEffect.startTimer(onTick: { [weak self] in
-            Task { [weak self] in
-                await self?.send(.timerTick)
-            }
-        }, shouldStop: { [weak self] in
-            self?.state.isFinished == true
-        })
-    }
-
-    private func advanceToNext() async {
-        await sideEffect.stopTimer()
-        if state.currentIndex + 1 >= state.questions.count {
-            await finish()
-        } else {
-            reduce(.setIndex(state.currentIndex + 1))
-            resetQuestionState()
-            await startTimer()
-        }
-    }
-
-    private func finish() async {
-        await sideEffect.stopTimer()
-        reduce(.setFinished(true))
-        let result = QuizResult(
-            id: UUID().uuidString,
-            date: Date(),
-            totalCount: state.questions.count,
-            correctCount: state.correctCount,
-            settings: state.settings
-        )
-        sideEffect.showResult(result)
-    }
-
-    private func resetQuestionState() {
-        reduce(.setSelectedAnswer(nil))
-        reduce(.setCorrect(nil))
-        reduce(.setTimeRemaining(state.settings.timeLimitSeconds))
-        reduce(.setAnswers(makeAnswers()))
-    }
-
-    private func makeAnswers() -> [String] {
-        guard let question = state.currentQuestion else { return [] }
-        var answers = question.incorrectAnswers + [question.correctAnswer]
-        answers.shuffle()
-        return answers
-    }
-
-    private func reduce(_ action: InternalAction) {
+    func reduce(_ action: InternalAction) {
         switch action {
         case .setLoading(let isLoading):
             state.isLoading = isLoading
