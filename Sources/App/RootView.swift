@@ -12,14 +12,7 @@ struct RootView: View {
             NavigationStack(path: $router.dashboardPath) {
                 DashboardView(store: dashboardStore)
                     .navigationDestination(for: AppRouter.Route.self) { route in
-                        switch route {
-                        case .quiz(let settings):
-                            QuizView(store: container.makeQuizStore(settings: settings))
-                                .toolbar(.hidden, for: .tabBar)
-                        case .result(let result):
-                            ResultView(store: container.makeResultStore(result: result))
-                                .toolbar(.hidden, for: .tabBar)
-                        }
+                        destinationView(for: route)
                     }
             }
             .tabItem {
@@ -35,6 +28,21 @@ struct RootView: View {
             }
             .tag(AppRouter.AppTab.history)
         }
+    }
+}
+
+private extension RootView {
+    @ViewBuilder
+    func destinationView(for route: AppRouter.Route) -> some View {
+        Group {
+            switch route {
+            case .quiz(let settings):
+                QuizView(store: container.makeQuizStore(settings: settings))
+            case .result(let result):
+                ResultView(store: container.makeResultStore(result: result))
+            }
+        }
+        .toolbar(route.hidesTabBar ? .hidden : .visible, for: .tabBar)
     }
 }
 

@@ -7,6 +7,9 @@ struct BrinyQuizApp: App {
     var body: some Scene {
         WindowGroup {
             AppEntryView(container: container, router: container.appRouter)
+                .onOpenURL { url in
+                    container.appRouter.handleDeepLink(url)
+                }
         }
     }
 }
