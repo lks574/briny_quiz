@@ -6,6 +6,7 @@ struct RootView: View {
     let container: AppContainer
     let dashboardStore: DashboardStore
     let historyStore: HistoryStore
+    let settingsStore: SettingsStore
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
@@ -27,6 +28,14 @@ struct RootView: View {
                 Label("History", systemImage: "clock.arrow.circlepath")
             }
             .tag(AppRouter.AppTab.history)
+
+            NavigationStack(path: $router.settingsPath) {
+                SettingsView(store: settingsStore)
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gearshape")
+            }
+            .tag(AppRouter.AppTab.settings)
         }
     }
 }
@@ -52,6 +61,7 @@ struct AppEntryView: View {
     @State private var splashStore = SplashStore()
     @State private var dashboardStore: DashboardStore?
     @State private var historyStore: HistoryStore?
+    @State private var settingsStore: SettingsStore?
 
     var body: some View {
         if let settings = splashStore.state.settings {
@@ -59,7 +69,8 @@ struct AppEntryView: View {
                 router: router,
                 container: container,
                 dashboardStore: dashboardStore ?? container.makeDashboardStore(initialSettings: settings),
-                historyStore: historyStore ?? container.makeHistoryStore()
+                historyStore: historyStore ?? container.makeHistoryStore(),
+                settingsStore: settingsStore ?? container.makeSettingsStore()
             )
             .onAppear {
                 if dashboardStore == nil {
@@ -67,6 +78,9 @@ struct AppEntryView: View {
                 }
                 if historyStore == nil {
                     historyStore = container.makeHistoryStore()
+                }
+                if settingsStore == nil {
+                    settingsStore = container.makeSettingsStore()
                 }
             }
         } else {

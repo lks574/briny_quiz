@@ -7,6 +7,7 @@ final class AppRouter {
     enum AppTab: Hashable {
         case dashboard
         case history
+        case settings
     }
 
     enum Route: Hashable {
@@ -17,6 +18,7 @@ final class AppRouter {
     var selectedTab: AppTab = .dashboard
     var dashboardPath: [Route] = []
     var historyPath: [Route] = []
+    var settingsPath: [Route] = []
 
     func selectTab(_ tab: AppTab) {
         selectedTab = tab
@@ -57,6 +59,9 @@ final class AppRouter {
         case .history:
             selectTab(.history)
             popToRoot()
+        case .settings:
+            selectTab(.settings)
+            popToRoot()
         case .quiz:
             selectTab(.dashboard)
             popToRoot()
@@ -70,6 +75,8 @@ final class AppRouter {
             update(&dashboardPath)
         case .history:
             update(&historyPath)
+        case .settings:
+            update(&settingsPath)
         }
     }
 }

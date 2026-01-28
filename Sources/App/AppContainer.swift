@@ -51,4 +51,8 @@ final class AppContainer {
     func makeHistoryStore() -> HistoryStore {
         HistoryStore(fetchHistoryUseCase: fetchHistoryUseCase)
     }
+
+    func makeSettingsStore() -> SettingsStore {
+        SettingsStore(sideEffect: SettingsSideEffectImpl())
+    }
 }

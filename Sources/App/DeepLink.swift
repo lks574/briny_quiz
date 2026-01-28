@@ -3,6 +3,7 @@ import Foundation
 enum DeepLink: Hashable {
     case dashboard
     case history
+    case settings
     case quiz
 
     static func parse(_ url: URL) -> DeepLink? {
@@ -14,6 +15,9 @@ enum DeepLink: Hashable {
         }
         if host == "history" || path.first == "history" {
             return .history
+        }
+        if host == "settings" || path.first == "settings" {
+            return .settings
         }
         if host == "quiz" || path.first == "quiz" {
             return .quiz
