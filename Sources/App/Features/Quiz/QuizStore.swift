@@ -73,18 +73,18 @@ final class QuizStore {
         case .answerSelected(let answer):
             selectAnswer(answer)
         case .nextTapped:
-            goNext()
+            await advanceToNext()
         case .skipTapped:
-            skip()
+            await advanceToNext()
         case .timerTick:
-            tick()
+            guard state.timeRemaining > 0 else { return }
+            reduce(.setTimeRemaining(state.timeRemaining - 1))
+            if state.timeRemaining == 0 {
+                await advanceToNext()
+            }
         case .finish:
-            finish()
+            await finish()
         }
-    }
-
-    func sendAsync(_ action: Action) {
-        Task { await send(action) }
     }
 
     private func loadQuestions() async {
@@ -100,7 +100,7 @@ final class QuizStore {
             reduce(.setQuestions(questions))
             reduce(.setIndex(0))
             resetQuestionState()
-            startTimer()
+            await startTimer()
         case .failure(let appError):
             reduce(.setError(appError.displayMessage))
         }
@@ -117,43 +117,29 @@ final class QuizStore {
         }
     }
 
-    private func goNext() {
-        advanceToNext()
-    }
-
-    private func skip() {
-        advanceToNext()
-    }
-
-    private func tick() {
-        guard state.timeRemaining > 0 else { return }
-        reduce(.setTimeRemaining(state.timeRemaining - 1))
-        if state.timeRemaining == 0 {
-            advanceToNext()
-        }
-    }
-
-    private func startTimer() {
-        sideEffect.startTimer(onTick: { [weak self] in
-            self?.sendAsync(.timerTick)
+    private func startTimer() async {
+        await sideEffect.startTimer(onTick: { [weak self] in
+            Task { [weak self] in
+                await self?.send(.timerTick)
+            }
         }, shouldStop: { [weak self] in
             self?.state.isFinished == true
         })
     }
 
-    private func advanceToNext() {
-        sideEffect.stopTimer()
+    private func advanceToNext() async {
+        await sideEffect.stopTimer()
         if state.currentIndex + 1 >= state.questions.count {
-            finish()
+            await finish()
         } else {
             reduce(.setIndex(state.currentIndex + 1))
             resetQuestionState()
-            startTimer()
+            await startTimer()
         }
     }
 
-    private func finish() {
-        sideEffect.stopTimer()
+    private func finish() async {
+        await sideEffect.stopTimer()
         reduce(.setFinished(true))
         let result = QuizResult(
             id: UUID().uuidString,
