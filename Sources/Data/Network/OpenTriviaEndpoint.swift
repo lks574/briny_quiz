@@ -30,7 +30,9 @@ enum OpenTriviaEndpoint: Endpoint {
                 URLQueryItem(name: "difficulty", value: settings.difficulty.rawValue),
                 URLQueryItem(name: "encode", value: "base64")
             ]
-            if let categoryId = settings.categoryId, !categoryId.isEmpty {
+            if let categoryId = settings.categoryId,
+               !categoryId.isEmpty,
+               Int(categoryId) != nil {
                 items.append(URLQueryItem(name: "category", value: categoryId))
             }
             switch settings.type {
