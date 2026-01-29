@@ -16,6 +16,7 @@ struct RootView: View {
                         destinationView(for: route)
                     }
             }
+            .toolbar(router.dashboardPath.last?.hidesTabBar == true ? .hidden : .visible, for: .tabBar)
             .tabItem {
                 Label("Dashboard", systemImage: "sparkles")
             }
@@ -24,6 +25,7 @@ struct RootView: View {
             NavigationStack(path: $router.historyPath) {
                 HistoryView(store: historyStore)
             }
+            .toolbar(router.historyPath.last?.hidesTabBar == true ? .hidden : .visible, for: .tabBar)
             .tabItem {
                 Label("History", systemImage: "clock.arrow.circlepath")
             }
@@ -32,6 +34,7 @@ struct RootView: View {
             NavigationStack(path: $router.settingsPath) {
                 SettingsView(store: settingsStore)
             }
+            .toolbar(router.settingsPath.last?.hidesTabBar == true ? .hidden : .visible, for: .tabBar)
             .tabItem {
                 Label("Settings", systemImage: "gearshape")
             }
