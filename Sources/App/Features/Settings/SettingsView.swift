@@ -7,10 +7,6 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DSSpacing.l) {
-                Text("설정")
-                    .font(DSTypography.title)
-                    .foregroundStyle(DSColor.textPrimary)
-
                 DSCard {
                     VStack(alignment: .leading, spacing: DSSpacing.m) {
                         Text("오프라인 팩")

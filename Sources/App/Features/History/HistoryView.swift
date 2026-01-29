@@ -14,10 +14,6 @@ struct HistoryView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DSSpacing.m) {
-                Text("히스토리")
-                    .font(DSTypography.title)
-                    .foregroundStyle(DSColor.textPrimary)
-
                 DSCard {
                     VStack(alignment: .leading, spacing: DSSpacing.m) {
                         Text("기간")

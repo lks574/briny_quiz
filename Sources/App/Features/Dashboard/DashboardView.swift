@@ -7,10 +7,6 @@ struct DashboardView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DSSpacing.l) {
-                Text("퀴즈 설정")
-                    .font(DSTypography.title)
-                    .foregroundStyle(DSColor.textPrimary)
-
                 DSCard {
                     VStack(alignment: .leading, spacing: DSSpacing.m) {
                         Text("카테고리")

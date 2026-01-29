@@ -6,10 +6,6 @@ struct ResultView: View {
 
     var body: some View {
         VStack(spacing: DSSpacing.l) {
-            Text("결과")
-                .font(DSTypography.title)
-                .foregroundStyle(DSColor.textPrimary)
-
             DSCard {
                 VStack(spacing: DSSpacing.s) {
                     Text("점수")
