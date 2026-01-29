@@ -9,6 +9,12 @@ final class DashboardStore {
             let title: String
         }
 
+        struct StageCandidate: Equatable {
+            let stageId: String
+            let categoryId: String
+            let difficulty: Difficulty
+        }
+
         var categories: [CategoryItem]
         var selectedCategoryId: String
         var selectedDifficulty: Difficulty
@@ -16,6 +22,7 @@ final class DashboardStore {
         var timeLimitSeconds: Int
         var isStarting: Bool
         var errorMessage: String?
+        var quickStartCandidates: [StageCandidate]
     }
 
     enum Action: Equatable {
@@ -25,6 +32,7 @@ final class DashboardStore {
         case questionCountChanged(Int)
         case timeLimitChanged(Int)
         case stageTapped
+        case quickStartTapped
     }
 
     enum InternalAction: Equatable {
@@ -36,6 +44,7 @@ final class DashboardStore {
         case setTimeLimit(Int)
         case setStarting(Bool)
         case setError(String?)
+        case setQuickStartCandidates([State.StageCandidate])
     }
 
     private let sideEffect: DashboardSideEffect
@@ -51,7 +60,8 @@ final class DashboardStore {
             questionCount: initialSettings.amount,
             timeLimitSeconds: initialSettings.timeLimitSeconds,
             isStarting: false,
-            errorMessage: nil
+            errorMessage: nil,
+            quickStartCandidates: []
         )
     }
 
@@ -59,6 +69,7 @@ final class DashboardStore {
         switch action {
         case .onAppear:
             await loadCategories()
+            await loadQuickStartCandidates()
         case .categorySelected(let categoryId):
             reduce(.setCategory(categoryId))
         case .difficultySelected(let difficulty):
@@ -69,6 +80,8 @@ final class DashboardStore {
             reduce(.setTimeLimit(seconds))
         case .stageTapped:
             showStage()
+        case .quickStartTapped:
+            quickStart()
         }
     }
 
@@ -82,6 +95,25 @@ final class DashboardStore {
         reduce(.setStarting(true))
         sideEffect.showStage(categoryId: snapshot.selectedCategoryId, difficulty: snapshot.selectedDifficulty)
         reduce(.setStarting(false))
+    }
+
+    private func quickStart() {
+        let snapshot = state
+        guard !snapshot.quickStartCandidates.isEmpty else {
+            reduce(.setError("빠른 시작을 위한 스테이지가 없습니다."))
+            return
+        }
+        let pick = snapshot.quickStartCandidates.randomElement()
+        guard let candidate = pick else { return }
+        let settings = QuizSettings(
+            amount: 5,
+            difficulty: candidate.difficulty,
+            type: .mixed,
+            categoryId: candidate.categoryId,
+            stageId: candidate.stageId,
+            timeLimitSeconds: 10
+        )
+        sideEffect.startQuiz(settings: settings)
     }
 
     private func validate(_ snapshot: State) -> Bool {
@@ -119,6 +151,8 @@ final class DashboardStore {
             state.isStarting = isStarting
         case .setError(let message):
             state.errorMessage = message
+        case .setQuickStartCandidates(let candidates):
+            state.quickStartCandidates = candidates
         }
     }
 }
@@ -136,5 +170,61 @@ private extension DashboardStore {
         case .failure(let error):
             reduce(.setError(error.displayMessage))
         }
+    }
+
+    func loadQuickStartCandidates() async {
+        let stagesResult = await sideEffect.fetchAllStages()
+        switch stagesResult {
+        case .success(let stages):
+            let progressResult = await sideEffect.fetchProgress()
+            let unlocked = applyUnlockRules(stages: stages, progress: progressResult)
+            let candidates = unlocked.map { stage in
+                State.StageCandidate(
+                    stageId: stage.id,
+                    categoryId: stage.categoryId,
+                    difficulty: stage.difficulty
+                )
+            }
+            reduce(.setQuickStartCandidates(candidates))
+        case .failure(let error):
+            reduce(.setError(error.displayMessage))
+        }
+    }
+
+    func applyUnlockRules(stages: [QuizStage], progress: Result<[StageProgress], AppError>) -> [QuizStage] {
+        let progressMap: [String: StageProgress]
+        switch progress {
+        case .success(let items):
+            progressMap = Dictionary(uniqueKeysWithValues: items.map { ($0.stageId, $0) })
+        case .failure:
+            progressMap = [:]
+        }
+
+        var result: [QuizStage] = []
+        struct StageGroup: Hashable {
+            let categoryId: String
+            let difficulty: Difficulty
+        }
+        let grouped = Dictionary(grouping: stages) { StageGroup(categoryId: $0.categoryId, difficulty: $0.difficulty) }
+        for (_, groupStages) in grouped {
+            let sorted = groupStages.sorted { $0.order < $1.order }
+            var unlocked = true
+            for stage in sorted {
+                let progress = progressMap[stage.id]
+                if stage.order == 1 {
+                    unlocked = true
+                } else {
+                    let prev = sorted[stage.order - 2]
+                    let prevProgress = progressMap[prev.id]
+                    unlocked = (prevProgress?.bestScore ?? 0) >= 4
+                }
+                if unlocked {
+                    if progress == nil || progress?.isUnlocked == true {
+                        result.append(stage)
+                    }
+                }
+            }
+        }
+        return result
     }
 }

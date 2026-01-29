@@ -67,6 +67,20 @@ actor PackDatabase {
         }
     }
 
+    func fetchAllStages() throws -> [QuizStage] {
+        try openIfNeeded()
+        let query = "SELECT id, title, categoryId, difficulty, \"order\" FROM stages ORDER BY categoryId, difficulty, \"order\";"
+        return try runQuery(query) { stmt in
+            QuizStage(
+                id: columnText(stmt, 0),
+                title: columnText(stmt, 1),
+                categoryId: columnText(stmt, 2),
+                difficulty: Difficulty(rawValue: columnText(stmt, 3)) ?? .easy,
+                order: Int(sqlite3_column_int(stmt, 4))
+            )
+        }
+    }
+
     private func openIfNeeded() throws {
         if db != nil { return }
         let result = sqlite3_open(dbURL.path, &db)

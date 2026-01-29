@@ -39,6 +39,20 @@ struct ResultView: View {
 
 #Preview {
     let result = QuizResult(id: "1", date: .now, totalCount: 10, correctCount: 7, settings: .default)
-    let store = ResultStore(result: result, saveResultUseCase: SaveResultUseCase(repository: TriviaRepositoryImpl(apiClient: APIClient(), cache: QuestionCache(), historyStore: HistoryCache(), tokenStore: TriviaTokenStore())), router: AppRouter())
+    let packRepository = PackRepositoryImpl()
+    let stageProgressRepository = StageProgressRepositoryImpl(packRepository: packRepository)
+    let store = ResultStore(
+        result: result,
+        saveResultUseCase: SaveResultUseCase(
+            repository: TriviaRepositoryImpl(
+                apiClient: APIClient(),
+                cache: QuestionCache(),
+                historyStore: HistoryCache(),
+                tokenStore: TriviaTokenStore()
+            )
+        ),
+        updateStageProgressUseCase: UpdateStageProgressUseCase(repository: stageProgressRepository),
+        router: AppRouter()
+    )
     return NavigationStack { ResultView(store: store) }
 }

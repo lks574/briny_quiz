@@ -108,6 +108,11 @@ private extension StageStore {
     ) -> [String: StageProgress] {
         switch result {
         case .success(let progress):
+            if progress.isEmpty {
+                return Dictionary(uniqueKeysWithValues: stages.map { stage in
+                    (stage.id, StageProgress(stageId: stage.id, isUnlocked: stage.order == 1, bestScore: 0, lastPlayedAt: nil))
+                })
+            }
             return Dictionary(uniqueKeysWithValues: progress.map { ($0.stageId, $0) })
         case .failure:
             return Dictionary(uniqueKeysWithValues: stages.map { stage in

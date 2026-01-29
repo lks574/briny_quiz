@@ -9,7 +9,10 @@ final class AppContainer {
     private let fetchQuestionsUseCase: FetchQuestionsUseCase
     private let fetchPackCategoriesUseCase: FetchPackCategoriesUseCase
     private let fetchPackStagesUseCase: FetchPackStagesUseCase
+    private let fetchAllPackStagesUseCase: FetchAllPackStagesUseCase
     private let fetchPackQuestionsUseCase: FetchPackQuestionsUseCase
+    private let fetchStageProgressUseCase: FetchStageProgressUseCase
+    private let updateStageProgressUseCase: UpdateStageProgressUseCase
 
     private struct StageKey: Hashable {
         let categoryId: String
@@ -36,7 +39,11 @@ final class AppContainer {
         self.fetchQuestionsUseCase = FetchQuestionsUseCase(repository: repository)
         self.fetchPackCategoriesUseCase = FetchPackCategoriesUseCase(repository: packRepository)
         self.fetchPackStagesUseCase = FetchPackStagesUseCase(repository: packRepository)
+        self.fetchAllPackStagesUseCase = FetchAllPackStagesUseCase(repository: packRepository)
         self.fetchPackQuestionsUseCase = FetchPackQuestionsUseCase(repository: packRepository)
+        let stageProgressRepository = StageProgressRepositoryImpl(packRepository: packRepository)
+        self.fetchStageProgressUseCase = FetchStageProgressUseCase(repository: stageProgressRepository)
+        self.updateStageProgressUseCase = UpdateStageProgressUseCase(repository: stageProgressRepository)
         self.saveResultUseCase = SaveResultUseCase(repository: repository)
         self.fetchHistoryUseCase = FetchHistoryUseCase(repository: repository)
     }
@@ -49,7 +56,8 @@ final class AppContainer {
         DashboardStore(
             sideEffect: DashboardSideEffectImpl(
                 router: appRouter,
-                fetchPackCategoriesUseCase: fetchPackCategoriesUseCase
+                fetchPackCategoriesUseCase: fetchPackCategoriesUseCase,
+                fetchAllPackStagesUseCase: fetchAllPackStagesUseCase
             ),
             initialSettings: initialSettings
         )
@@ -67,7 +75,12 @@ final class AppContainer {
     }
 
     func makeResultStore(result: QuizResult) -> ResultStore {
-        ResultStore(result: result, saveResultUseCase: saveResultUseCase, router: appRouter)
+        ResultStore(
+            result: result,
+            saveResultUseCase: saveResultUseCase,
+            updateStageProgressUseCase: updateStageProgressUseCase,
+            router: appRouter
+        )
     }
 
     func makeHistoryStore() -> HistoryStore {
@@ -88,10 +101,15 @@ final class AppContainer {
             difficulty: difficulty,
             sideEffect: StageSideEffectImpl(
                 router: appRouter,
-                fetchPackStagesUseCase: fetchPackStagesUseCase
+                fetchPackStagesUseCase: fetchPackStagesUseCase,
+                fetchStageProgressUseCase: fetchStageProgressUseCase
             )
         )
         stageStoreCache[key] = store
         return store
+    }
+
+    func makeUpdateStageProgressUseCase() -> UpdateStageProgressUseCase {
+        updateStageProgressUseCase
     }
 }

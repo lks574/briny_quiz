@@ -79,6 +79,10 @@ struct DashboardView: View {
                 }
                 .disabled(store.state.isStarting)
 
+                DSButton("빠른 시작", style: .secondary) {
+                    store.send(.quickStartTapped)
+                }
+
                 if let errorMessage = store.state.errorMessage {
                     Text(errorMessage)
                         .font(DSTypography.body)
@@ -99,10 +103,12 @@ struct DashboardView: View {
     let router = AppRouter()
     let packRepository = PackRepositoryImpl()
     let fetchPackCategoriesUseCase = FetchPackCategoriesUseCase(repository: packRepository)
+    let fetchAllPackStagesUseCase = FetchAllPackStagesUseCase(repository: packRepository)
     let store = DashboardStore(
         sideEffect: DashboardSideEffectImpl(
             router: router,
-            fetchPackCategoriesUseCase: fetchPackCategoriesUseCase
+            fetchPackCategoriesUseCase: fetchPackCategoriesUseCase,
+            fetchAllPackStagesUseCase: fetchAllPackStagesUseCase
         ),
         initialSettings: .default
     )

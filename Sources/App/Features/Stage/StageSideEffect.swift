@@ -11,10 +11,16 @@ protocol StageSideEffect {
 final class StageSideEffectImpl: StageSideEffect {
     private let router: AppRouter
     private let fetchPackStagesUseCase: FetchPackStagesUseCase
+    private let fetchStageProgressUseCase: FetchStageProgressUseCase
 
-    init(router: AppRouter, fetchPackStagesUseCase: FetchPackStagesUseCase) {
+    init(
+        router: AppRouter,
+        fetchPackStagesUseCase: FetchPackStagesUseCase,
+        fetchStageProgressUseCase: FetchStageProgressUseCase
+    ) {
         self.router = router
         self.fetchPackStagesUseCase = fetchPackStagesUseCase
+        self.fetchStageProgressUseCase = fetchStageProgressUseCase
     }
 
     func fetchStages(categoryId: String, difficulty: Difficulty) async -> Result<[QuizStage], AppError> {
@@ -27,9 +33,8 @@ final class StageSideEffectImpl: StageSideEffect {
     }
 
     func fetchProgress(categoryId: String, difficulty: Difficulty) async -> Result<[StageProgress], AppError> {
-        let firstStageId = "\(categoryId)_\(difficulty.rawValue)_1"
-        let progress = StageProgress(stageId: firstStageId, isUnlocked: true, bestScore: 0, lastPlayedAt: nil)
-        return .success([progress])
+        let progress = await fetchStageProgressUseCase.execute()
+        return .success(progress)
     }
 
     func startQuiz(settings: QuizSettings) {

@@ -22,6 +22,11 @@ final class PackRepositoryImpl: PackRepository {
         return try await db.fetchQuestions(stageId: stageId)
     }
 
+    func fetchAllStages() async throws -> [QuizStage] {
+        let db = try await openDatabase()
+        return try await db.fetchAllStages()
+    }
+
     private func openDatabase() async throws -> PackDatabase {
         guard let url = fileStore.currentPackURL() else {
             throw AppError.pack("팩 파일을 찾을 수 없습니다.")

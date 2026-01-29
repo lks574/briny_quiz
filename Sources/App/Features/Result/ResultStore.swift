@@ -18,12 +18,19 @@ final class ResultStore {
     }
 
     private let saveResultUseCase: SaveResultUseCase
+    private let updateStageProgressUseCase: UpdateStageProgressUseCase
     private let router: AppRouter
 
     var state: State
 
-    init(result: QuizResult, saveResultUseCase: SaveResultUseCase, router: AppRouter) {
+    init(
+        result: QuizResult,
+        saveResultUseCase: SaveResultUseCase,
+        updateStageProgressUseCase: UpdateStageProgressUseCase,
+        router: AppRouter
+    ) {
         self.saveResultUseCase = saveResultUseCase
+        self.updateStageProgressUseCase = updateStageProgressUseCase
         self.router = router
         self.state = State(result: result, isSaved: false)
     }
@@ -42,6 +49,9 @@ final class ResultStore {
         Task { [weak self] in
             guard let self else { return }
             await saveResultUseCase.execute(state.result)
+            if let stageId = state.result.settings.stageId {
+                await updateStageProgressUseCase.execute(stageId: stageId, score: state.result.correctCount)
+            }
             reduce(.setSaved(true))
         }
     }
