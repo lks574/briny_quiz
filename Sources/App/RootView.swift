@@ -1,5 +1,8 @@
 import Observation
 import SwiftUI
+import FeatureQuiz
+import FeatureHistory
+import FeatureSettings
 
 struct RootView: View {
     @Bindable var router: AppRouter

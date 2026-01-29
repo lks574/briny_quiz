@@ -1,4 +1,9 @@
 import Foundation
+import Domain
+import Data
+import FeatureQuiz
+import FeatureHistory
+import FeatureSettings
 
 @MainActor
 final class AppContainer {
@@ -57,7 +62,8 @@ final class AppContainer {
             sideEffect: DashboardSideEffectImpl(
                 router: appRouter,
                 fetchPackCategoriesUseCase: fetchPackCategoriesUseCase,
-                fetchAllPackStagesUseCase: fetchAllPackStagesUseCase
+                fetchAllPackStagesUseCase: fetchAllPackStagesUseCase,
+                fetchStageProgressUseCase: fetchStageProgressUseCase
             ),
             initialSettings: initialSettings
         )

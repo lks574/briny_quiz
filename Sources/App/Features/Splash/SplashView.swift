@@ -1,5 +1,6 @@
 import Observation
 import SwiftUI
+import DesignSystem
 
 struct SplashView: View {
     @Bindable var store: SplashStore

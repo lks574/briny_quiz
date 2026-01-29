@@ -1,5 +1,8 @@
 import Observation
 import SwiftUI
+import Domain
+import DesignSystem
+import Data
 
 struct DashboardView: View {
     @Bindable var store: DashboardStore
@@ -100,13 +103,16 @@ struct DashboardView: View {
     let packRepository = PackRepositoryImpl()
     let fetchPackCategoriesUseCase = FetchPackCategoriesUseCase(repository: packRepository)
     let fetchAllPackStagesUseCase = FetchAllPackStagesUseCase(repository: packRepository)
+    let stageProgressRepository = StageProgressRepositoryImpl(packRepository: packRepository)
+    let fetchStageProgressUseCase = FetchStageProgressUseCase(repository: stageProgressRepository)
     let store = DashboardStore(
         sideEffect: DashboardSideEffectImpl(
             router: router,
             fetchPackCategoriesUseCase: fetchPackCategoriesUseCase,
-            fetchAllPackStagesUseCase: fetchAllPackStagesUseCase
+            fetchAllPackStagesUseCase: fetchAllPackStagesUseCase,
+            fetchStageProgressUseCase: fetchStageProgressUseCase
         ),
         initialSettings: .default
     )
-    return NavigationStack { DashboardView(store: store) }
+    NavigationStack { DashboardView(store: store) }
 }

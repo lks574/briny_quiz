@@ -1,4 +1,5 @@
 import Observation
+import Domain
 
 @MainActor
 @Observable

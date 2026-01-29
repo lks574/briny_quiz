@@ -1,4 +1,6 @@
 import Foundation
+import Domain
+import Data
 
 @MainActor
 protocol DashboardSideEffect {
@@ -14,18 +16,18 @@ final class DashboardSideEffectImpl: DashboardSideEffect {
     private let router: AppRouter
     private let fetchPackCategoriesUseCase: FetchPackCategoriesUseCase
     private let fetchAllPackStagesUseCase: FetchAllPackStagesUseCase
-    private let progressStore: StageProgressStore
+    private let fetchStageProgressUseCase: FetchStageProgressUseCase
 
     init(
         router: AppRouter,
         fetchPackCategoriesUseCase: FetchPackCategoriesUseCase,
         fetchAllPackStagesUseCase: FetchAllPackStagesUseCase,
-        progressStore: StageProgressStore = StageProgressStore()
+        fetchStageProgressUseCase: FetchStageProgressUseCase
     ) {
         self.router = router
         self.fetchPackCategoriesUseCase = fetchPackCategoriesUseCase
         self.fetchAllPackStagesUseCase = fetchAllPackStagesUseCase
-        self.progressStore = progressStore
+        self.fetchStageProgressUseCase = fetchStageProgressUseCase
     }
 
     func fetchCategories() async -> Result<[QuizCategory], AppError> {
@@ -47,7 +49,7 @@ final class DashboardSideEffectImpl: DashboardSideEffect {
     }
 
     func fetchProgress() async -> Result<[StageProgress], AppError> {
-        let progress = await progressStore.load()
+        let progress = await fetchStageProgressUseCase.execute()
         return .success(progress)
     }
 

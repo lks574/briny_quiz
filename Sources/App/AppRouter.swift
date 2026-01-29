@@ -1,5 +1,7 @@
 import Observation
 import SwiftUI
+import Domain
+import FeatureQuiz
 
 @MainActor
 @Observable
@@ -97,5 +99,11 @@ extension AppRouter.Route {
         case .stage:
             return false
         }
+    }
+}
+
+extension AppRouter: QuizRouting {
+    func showResult(_ result: QuizResult) {
+        push(.result(result))
     }
 }

@@ -1,5 +1,8 @@
 import Observation
 import SwiftUI
+import DesignSystem
+import Domain
+import Data
 
 struct StageView: View {
     @Bindable var store: StageStore

@@ -1,5 +1,8 @@
 import Observation
 import SwiftUI
+import Domain
+import Data
+import DesignSystem
 
 struct ResultView: View {
     @Bindable var store: ResultStore
