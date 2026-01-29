@@ -92,7 +92,7 @@ struct QuizView: View {
             return DSColor.surface
         }
         if answer == selected {
-            return store.state.isCorrect == true ? DSColor.primary : DSColor.error
+            return DSColor.primary
         }
         return DSColor.surface
     }

@@ -99,12 +99,20 @@ private extension QuizStore {
     }
 
     func selectAnswer(_ answer: String) {
-        guard state.selectedAnswer == nil else { return }
+        if state.selectedAnswer == answer {
+            return
+        }
+        let wasCorrect = state.isCorrect == true
         reduce(.setSelectedAnswer(answer))
         let isCorrect = answer == state.currentQuestion?.correctAnswer
         reduce(.setCorrect(isCorrect))
-        if isCorrect {
+        switch (wasCorrect, isCorrect) {
+        case (true, false):
+            reduce(.setCorrectCount(max(0, state.correctCount - 1)))
+        case (false, true):
             reduce(.setCorrectCount(state.correctCount + 1))
+        default:
+            break
         }
     }
 
