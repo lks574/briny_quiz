@@ -3,7 +3,6 @@
 ENV['RCT_NEW_ARCH_ENABLED'] = '1'
 
 require_relative './RN/node_modules/react-native/scripts/react_native_pods'
-require_relative './RN/node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 platform :ios, '17.0'
 prepare_react_native_project!
@@ -15,7 +14,8 @@ target 'BrinyQuiz' do
     :path => react_native_path,
     :hermes_enabled => true,
     :fabric_enabled => true,
-    :app_path => "#{Pod::Config.instance.installation_root}"
+    :app_path => "#{Pod::Config.instance.installation_root}/RN",
+    :config_file_dir => "RN"
   )
 end
 

@@ -10,11 +10,11 @@
     "ios:debug": "react-native run-ios --scheme BrinyQuiz"
   },
   "dependencies": {
-    "react": "18.3.1",
+    "react": "19.2.0",
     "react-native": "0.83.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.0",
+    "@types/react": "^19.2.0",
     "typescript": "^5.7.0"
   }
 }
