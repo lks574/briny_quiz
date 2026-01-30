@@ -36,6 +36,13 @@ let project = Project(
             ]),
             sources: ["Sources/App/**"],
             resources: ["Resources/**"],
+            scripts: [
+                .post(
+                    script: "bash \"$PROJECT_DIR/Scripts/react-native-bundle.sh\"",
+                    name: "Bundle React Native (Release)",
+                    basedOnDependencyAnalysis: false
+                )
+            ],
             dependencies: [
                 .target(name: "FeatureQuiz"),
                 .target(name: "FeatureHistory"),

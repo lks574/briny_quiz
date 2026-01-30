@@ -10,6 +10,7 @@ struct RootView: View {
     let dashboardStore: DashboardStore
     let historyStore: HistoryStore
     let settingsStore: SettingsStore
+    @State private var showsRNExamples = false
 
     var body: some View {
         TabView(selection: $router.selectedTab) {
@@ -17,6 +18,13 @@ struct RootView: View {
                 DashboardView(store: dashboardStore)
                     .navigationDestination(for: AppRouter.Route.self) { route in
                         destinationView(for: route)
+                    }
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("RN") {
+                                showsRNExamples = true
+                            }
+                        }
                     }
             }
             .toolbar(router.dashboardPath.last?.hidesTabBar == true ? .hidden : .visible, for: .tabBar)
@@ -42,6 +50,11 @@ struct RootView: View {
                 Label("Settings", systemImage: "gearshape")
             }
             .tag(AppRouter.AppTab.settings)
+        }
+        .sheet(isPresented: $showsRNExamples) {
+            NavigationStack {
+                ReactNativeHostExamplesView()
+            }
         }
     }
 }

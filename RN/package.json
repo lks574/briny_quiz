@@ -1,0 +1,20 @@
+{
+  "name": "briny-quiz-rn",
+  "private": true,
+  "version": "0.0.1",
+  "main": "index.tsx",
+  "scripts": {
+    "start": "react-native start --port 8081",
+    "lint": "react-native lint",
+    "test": "jest",
+    "ios:debug": "react-native run-ios --scheme BrinyQuiz"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-native": "0.83.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "typescript": "^5.7.0"
+  }
+}

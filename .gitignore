@@ -15,6 +15,9 @@ xcuserdata/
 .build/
 .swiftpm/
 
+# CocoaPods
+Pods/
+
 # Tuist
 Tuist/.build/
 Tuist/Dependencies/
