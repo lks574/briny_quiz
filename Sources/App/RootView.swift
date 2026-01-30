@@ -21,7 +21,7 @@ struct RootView: View {
                     }
                     .toolbar {
                         ToolbarItem(placement: .topBarTrailing) {
-                            Button("RN") {
+                            Button("통계") {
                                 showsRNExamples = true
                             }
                         }
