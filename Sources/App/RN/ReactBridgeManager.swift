@@ -12,7 +12,13 @@ final class ReactBridgeManager {
 
     private static func bundleURL() -> URL {
         #if DEBUG
-        return RCTBundleURLProvider.sharedSettings().jsBundleURL(forBundleRoot: "index", fallbackResource: nil)
+        guard let url = RCTBundleURLProvider.sharedSettings().jsBundleURL(
+            forBundleRoot: "index",
+            fallbackExtension: nil
+        ) else {
+            fatalError("Failed to resolve Metro bundle URL")
+        }
+        return url
         #else
         guard let url = Bundle.main.url(forResource: "main", withExtension: "jsbundle") else {
             fatalError("main.jsbundle not found in app bundle")

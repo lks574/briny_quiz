@@ -22,7 +22,6 @@ Pods/
 .xcode.env
 .xcode.env.local
 build/
-PrivacyInfo.xcprivacy
 
 # Tuist
 Tuist/.build/
