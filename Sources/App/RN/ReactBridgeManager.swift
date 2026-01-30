@@ -1,16 +1,19 @@
 import Foundation
 import React
+import React_RCTAppDelegate
 
 @MainActor
 final class ReactBridgeManager {
     static let shared = ReactBridgeManager()
-    let bridge: RCTBridge
+    private let factoryDelegate: ReactFactoryDelegate
+    private let factory: RCTReactNativeFactory
 
     private init() {
-        bridge = RCTBridge(bundleURL: Self.bundleURL(), moduleProvider: nil, launchOptions: nil)
+        factoryDelegate = ReactFactoryDelegate()
+        factory = RCTReactNativeFactory(delegate: factoryDelegate)
     }
 
-    private static func bundleURL() -> URL {
+    static func bundleURL() -> URL {
         #if DEBUG
         guard let url = RCTBundleURLProvider.sharedSettings().jsBundleURL(
             forBundleRoot: "index",
@@ -25,5 +28,15 @@ final class ReactBridgeManager {
         }
         return url
         #endif
+    }
+
+    func makeRootView(moduleName: String, initialProperties: [String: Any]? = nil) -> UIView {
+        factory.rootViewFactory.view(withModuleName: moduleName, initialProperties: initialProperties)
+    }
+}
+
+private final class ReactFactoryDelegate: RCTDefaultReactNativeFactoryDelegate {
+    override func bundleURL() -> URL? {
+        ReactBridgeManager.bundleURL()
     }
 }

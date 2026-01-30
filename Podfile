@@ -1,5 +1,16 @@
 # CocoaPods for React Native (Brownfield)
 
+# Workaround: Xcode 26 project format (objectVersion 70) not recognized by
+# older xcodeproj mapping shipped with CocoaPods.
+begin
+  require 'xcodeproj'
+  compat = Xcodeproj::Constants::COMPATIBILITY_VERSION_BY_OBJECT_VERSION.dup
+  compat[70] ||= 'Xcode 16.0'
+  Xcodeproj::Constants.send(:remove_const, :COMPATIBILITY_VERSION_BY_OBJECT_VERSION)
+  Xcodeproj::Constants.const_set(:COMPATIBILITY_VERSION_BY_OBJECT_VERSION, compat.freeze)
+rescue LoadError
+end
+
 ENV['RCT_NEW_ARCH_ENABLED'] = '1'
 
 require_relative './RN/node_modules/react-native/scripts/react_native_pods'

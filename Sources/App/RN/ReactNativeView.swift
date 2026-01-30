@@ -10,9 +10,8 @@ struct ReactNativeView: UIViewRepresentable {
         self.initialProperties = initialProperties
     }
 
-    func makeUIView(context: Context) -> RCTRootView {
-        let view = RCTRootView(
-            bridge: ReactBridgeManager.shared.bridge,
+    func makeUIView(context: Context) -> UIView {
+        let view = ReactBridgeManager.shared.makeRootView(
             moduleName: moduleName,
             initialProperties: initialProperties
         )
@@ -20,7 +19,9 @@ struct ReactNativeView: UIViewRepresentable {
         return view
     }
 
-    func updateUIView(_ uiView: RCTRootView, context: Context) {
-        uiView.appProperties = initialProperties
+    func updateUIView(_ uiView: UIView, context: Context) {
+        if let rootView = uiView as? RCTRootView {
+            rootView.appProperties = initialProperties
+        }
     }
 }
