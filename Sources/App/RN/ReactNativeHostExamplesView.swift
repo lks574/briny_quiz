@@ -8,7 +8,8 @@ struct ReactNativeHostExamplesView: View {
             moduleName: "BrinyQuizRN",
             initialProperties: ["source": "stats"]
         )
-        .navigationTitle("통계")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

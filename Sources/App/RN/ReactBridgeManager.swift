@@ -1,6 +1,7 @@
 import Foundation
 import React
 import React_RCTAppDelegate
+import ReactAppDependencyProvider
 
 @MainActor
 final class ReactBridgeManager {
@@ -10,6 +11,7 @@ final class ReactBridgeManager {
 
     private init() {
         factoryDelegate = ReactFactoryDelegate()
+        factoryDelegate.dependencyProvider = RCTAppDependencyProvider()
         factory = RCTReactNativeFactory(delegate: factoryDelegate)
     }
 

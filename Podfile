@@ -28,6 +28,10 @@ target 'BrinyQuiz' do
     :app_path => "#{Pod::Config.instance.installation_root}/RN",
     :config_file_dir => "RN"
   )
+
+  # Ensure safe-area-context native code is linked (Fabric component views included).
+  pod 'react-native-safe-area-context', :path => './RN/node_modules/react-native-safe-area-context'
+  pod 'react-native-safe-area-context/fabric', :path => './RN/node_modules/react-native-safe-area-context'
 end
 
 post_install do |installer|
