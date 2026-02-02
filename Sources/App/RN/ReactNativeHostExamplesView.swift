@@ -1,12 +1,17 @@
 import SwiftUI
 import DesignSystem
 
-struct ReactNativeHostExamplesView: View {
+struct ReactNativeHostView: View {
+    let source: String
+
+    init(source: String) {
+        self.source = source
+    }
 
     var body: some View {
         ReactNativeView(
             moduleName: "BrinyQuizRN",
-            initialProperties: ["source": "stats"]
+            initialProperties: ["source": source]
         )
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
@@ -15,6 +20,6 @@ struct ReactNativeHostExamplesView: View {
 
 #Preview {
     NavigationStack {
-        ReactNativeHostExamplesView()
+        ReactNativeHostView(source: "stats")
     }
 }

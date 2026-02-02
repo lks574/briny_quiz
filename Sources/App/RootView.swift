@@ -51,10 +51,19 @@ struct RootView: View {
                 Label("Settings", systemImage: "gearshape")
             }
             .tag(AppRouter.AppTab.settings)
+
+            NavigationStack(path: $router.goalsPath) {
+                ReactNativeHostView(source: "goals")
+            }
+            .toolbar(router.goalsPath.last?.hidesTabBar == true ? .hidden : .visible, for: .tabBar)
+            .tabItem {
+                Label("Goals", systemImage: "target")
+            }
+            .tag(AppRouter.AppTab.goals)
         }
         .sheet(isPresented: $showsRNExamples) {
             NavigationStack {
-                ReactNativeHostExamplesView()
+                ReactNativeHostView(source: "stats")
             }
         }
     }

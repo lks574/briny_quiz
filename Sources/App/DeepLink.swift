@@ -4,6 +4,7 @@ enum DeepLink: Hashable {
     case dashboard
     case history
     case settings
+    case goals
     case quiz
 
     static func parse(_ url: URL) -> DeepLink? {
@@ -18,6 +19,9 @@ enum DeepLink: Hashable {
         }
         if host == "settings" || path.first == "settings" {
             return .settings
+        }
+        if host == "goals" || path.first == "goals" {
+            return .goals
         }
         if host == "quiz" || path.first == "quiz" {
             return .quiz
